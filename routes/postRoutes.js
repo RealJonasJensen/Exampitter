@@ -78,10 +78,10 @@ router.post("/like/:id", passport.authenticate("jwt", { session: false }),
         Post.findById(req.params.id)
             .then(post => {
                 // If user already liked
-                console.log(post.likes)
-                if (
-                    post.likes.filter(like => like.user.toString() === req.user.id).length > 0
-                ) {
+                // console.log(post.likes)
+                const alreadyLiked = post.likes.filter(like => like.user.toString() === req.user.id);
+                // console.log(alreadyLiked)
+                if (alreadyLiked.length > 0) {
                     return res.status(400).json({ alreadyLiked: "This user already liked this post" })
                 }
 
