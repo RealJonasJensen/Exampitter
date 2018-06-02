@@ -34,7 +34,7 @@ app.get("/", (req, res) => {
 app.use("/api/users", userRoutes)
 app.use("/api/posts", postRoutes)
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, (req, res) => {
     console.log("Server listening on: " + PORT)
