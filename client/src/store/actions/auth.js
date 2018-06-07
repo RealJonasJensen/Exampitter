@@ -7,10 +7,39 @@ import jwt_decode from "jwt-decode";
 
 export const loginUser = userdata => (
     dispatch => {
-        axios.post("api/users/login", userdata)
+        axios.post("/api/users/login", userdata)
             .then(response => {
                 console.log(response.data)
+                // Save webtoken to localStorage
+                const token = response.data.token;
+                localStorage.setItem("jwt", token);
+                // Set token to Auth Header
+                setAuthToken(token);
+                // Decode token to get user data
+                const decoded = jwt_decode(token);
+                dispatch(setCurrentUser(decoded))
+
             })
-            .catch(err => console.log(err))
+            .catch(err => {
+                dispatch({
+                    type: actions.GET_ERRORS,
+                    payload: err.response.data
+                })
+            })
     }
 )
+
+export const setCurrentUser = (decoded) => (
+    {
+        type: actions.SET_CURRENT_USER,
+        payload: decoded
+    }
+)
+
+export const logoutUser = () => dispatch => {
+    console.log("hej")
+    localStorage.removeItem("jwt")
+    setAuthToken(false)
+    dispatch(setCurrentUser({}))
+
+}

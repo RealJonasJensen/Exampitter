@@ -7,6 +7,7 @@ import Landing from "./Containers/Landing/Landing";
 import Dashboard from "./Containers/Dashboard/Dashboard";
 import Login from "./Containers/Login/Login";
 import Register from "./Containers/Register/Register";
+import Logout from "./Components/Logout/Logout";
 
 import './App.css';
 
@@ -19,6 +20,7 @@ class App extends Component {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={Register} />
+          <Route path="/logout" component={Logout} />
           <Route exact path="/" component={Landing} />
         </Switch>
 
