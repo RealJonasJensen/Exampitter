@@ -20,7 +20,7 @@ class Login extends Component {
             email: this.state.email,
             password: this.state.password
         }
-        this.props.onLoginUser(info)
+        this.props.onLoginUser(info, this.props.history)
     }
 
     render() {
@@ -39,7 +39,7 @@ class Login extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onLoginUser: (info) => dispatch(actions.loginUser(info))
+        onLoginUser: (info, history) => dispatch(actions.loginUser(info, history))
     }
 }
 

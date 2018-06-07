@@ -1,0 +1,19 @@
+.dashboard {
+    width: 1024px;
+    margin: 0 auto;
+    border: 1px solid black;
+    display: grid;
+    grid-template-columns: 20% 60% 20%;
+}
+
+.dashboard-item {
+    border: solid 1px black;
+}
+
+.dashboard-item-input input {
+    width: 80%;
+}
+
+.dashboard-item-input button {
+    width: 20%;
+}

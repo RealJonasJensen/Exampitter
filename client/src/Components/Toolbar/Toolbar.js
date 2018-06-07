@@ -9,15 +9,29 @@ class Toolbar extends Component {
     render() {
 
 
+        let items = (
+            <div>
+                <NavLink to="/login">Login</NavLink>
+                <NavLink to="/register">Register</NavLink>
+
+            </div>
+        )
+
+        if (this.props.auth.isAuthenticated) {
+            items = (
+                <div>
+                    <NavLink to="/">{this.props.auth.user.username}</NavLink>
+                    <NavLink to="/logout">Logout</NavLink>
+                </div>
+            )
+        }
+
+
         return (
             <div className="toolbar" >
                 <div className="toolbar-items">
                     <div>Exampitter</div>
-                    <div>
-                        <NavLink to="/login">Login</NavLink>
-                        <NavLink to="/register">Register</NavLink>
-                        <NavLink to="/logout">Logout</NavLink>
-                    </div>
+                    {items}
                 </div>
             </div>
         )
@@ -26,8 +40,8 @@ class Toolbar extends Component {
 
 const mapStateToProps = state => {
     return {
-
+        auth: state.auth
     }
 }
 
-export default connect(mapStateToProps, null)(Toolbar);
+export default connect(mapStateToProps)(Toolbar);

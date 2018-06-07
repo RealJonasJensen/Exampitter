@@ -173,4 +173,34 @@ router.post("/:id/follow", passport.authenticate("jwt", { session: false }), (re
         })
 })
 
+
+// @route       POST api/users/:id/unfollow/
+// @desc        unfollow a user
+// @access      Private
+router.post("/:id/unfollow", passport.authenticate("jwt", { session: false }), (req, res) => {
+    User.findById(req.params.id)
+        .then(user => {
+            // console.log(user)
+
+            // Check if following
+            const alreadyFollowing = user.followers.filter(follower => follower.user._id.toString() == req.user.id)
+            console.log(alreadyFollowing)
+            if (alreadyFollowing.length === 0) {
+                return res.status(400).json({ alreadyFollow: "You can't unfollow a user you don't follow" })
+            }
+
+
+            // Remove index
+            const removeIndex = user.followers.map(item => item.toString()).indexOf(req.user.id)
+            // Splice out of the array
+            user.followers.splice(removeIndex, 1);
+            // Save
+            user.save().then(user => res.json(user))
+
+        })
+        .catch(err => {
+            res.status(404).json({ noUser: "No user found" })
+        })
+})
+
 module.exports = router;
