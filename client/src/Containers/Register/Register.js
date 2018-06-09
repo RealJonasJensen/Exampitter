@@ -34,7 +34,7 @@ class Register extends Component {
                     <input type="text" name="username" onChange={this.onChangeInputHandler} value={this.state.username} placeholder="username" />
                     <input type="password" name="password" onChange={this.onChangeInputHandler} value={this.state.password} placeholder="password" />
                     <input type="password" name="password2" onChange={this.onChangeInputHandler} value={this.state.password2} placeholder="repeat password" />
-                    <button onClick={this.onSubmitHandler}>Login</button>
+                    <button onClick={this.onSubmitHandler}>Register</button>
                 </form>
             </div>
         )

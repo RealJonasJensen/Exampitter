@@ -1,0 +1,19 @@
+.dashboard-info-item {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    padding: 5%;
+    border-bottom:1px solid rgb(255, 0, 0);
+}
+
+.dashboard-info-item-text {
+    padding: 5%;
+}
+
+.dashboard-info-item-text p {
+    font-size: .85em;
+    padding: 2%;
+}
+
+.dashboard-info-item img {
+    width: 100%;
+}

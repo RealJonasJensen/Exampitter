@@ -5,20 +5,21 @@ import * as actions from "../../store/actions/index";
 
 import "./Dashboard.css";
 
+import DashboardInfo from "../DashboardInfo/DashboardInfo";
+
 class Dashboard extends Component {
 
     state = {
         message: "",
-        posts: [],
-        topUsers: [],
-        newUsers: [],
-        loadingTop: false,
-        loadingPosts: false,
-        loadingNew: false,
     }
 
-    componentDidMount() {
-        console.log(this.props.auth)
+    componentWillMount() {
+        if (this.props.auth.isAuthenticated && this.props.user !== {}) {
+            this.props.onGetCurrentUser();
+        }
+        this.props.onGetTopUsers();
+        this.props.onGetNewUsers();
+        console.log(this.props.post)
     }
 
     changeInputHandler = (event) => {
@@ -27,9 +28,6 @@ class Dashboard extends Component {
     }
 
     render() {
-        if (this.props.auth && this.props.user === {}) {
-            this.props.onGetCurrentUserInit();
-        }
 
         let dashboard = "Dashboard"
 
@@ -39,9 +37,13 @@ class Dashboard extends Component {
 
         return (
             <div className="dashboard">
-                <div className="dashboard-item dash-item1">Top Users</div>
+                <div className="dashboard-item dash-item1">
+                    Top Users
+                    <DashboardInfo info={this.props.post.topUsers}>{"Followers"}</DashboardInfo>
+                </div>
                 <div className="dashboard-item dash-item2">
                     Feed
+
                     <div className="dashboard-item-input">
                         <form action="">
                             <input type="text" name="message" value={this.state.message} onChange={this.changeInputHandler} placeholder="What do you want to share?" />
@@ -49,7 +51,10 @@ class Dashboard extends Component {
                         </form>
                     </div>
                 </div>
-                <div className="dashboard-item dash-item3">New Users</div>
+                <div className="dashboard-item dash-item3">
+                    New Users
+                <DashboardInfo info={this.props.post.newUsers}>{"Created"}</DashboardInfo>
+                </div>
                 {dashboard}
             </div>
         )
@@ -58,14 +63,17 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => {
     return {
-        auth: state.auth.isAuthenticated,
-        user: state.user
+        auth: state.auth,
+        user: state.user,
+        post: state.post
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onGetCurrentUserInit: () => dispatch(actions.getCurrentUserInit())
+        onGetCurrentUser: () => dispatch(actions.getCurrentUser()),
+        onGetTopUsers: () => dispatch(actions.getTopUsers()),
+        onGetNewUsers: () => dispatch(actions.getNewUsers())
     }
 }
 

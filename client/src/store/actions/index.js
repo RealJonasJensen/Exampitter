@@ -1,2 +1,3 @@
 export { loginUser, logoutUser, registerUser } from "./auth";
-export { getCurrentUserInit } from "./user";
+export { getCurrentUser } from "./user";
+export { getTopUsers, getNewUsers } from "./news"
