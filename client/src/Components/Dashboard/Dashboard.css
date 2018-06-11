@@ -17,3 +17,7 @@
 .dashboard-item-input button {
     width: 20%;
 }
+
+.dashboard-item-input {
+    border-bottom: 1px solid black;
+}

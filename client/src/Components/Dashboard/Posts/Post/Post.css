@@ -1,0 +1,11 @@
+.post {
+    width: 98%;
+    border: 1px solid black;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 10% 90%;
+}
+
+.post-avatar img {
+    width: 100%;
+}

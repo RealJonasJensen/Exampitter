@@ -170,7 +170,8 @@ router.get("/current", passport.authenticate("jwt", { session: false }), (req, r
         avatar: req.user.avatar,
         username: req.user.username,
         email: req.user.email,
-        followers: req.user.followers
+        followers: req.user.followers,
+        following: req.user.following
     })
 })
 

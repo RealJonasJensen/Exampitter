@@ -18,6 +18,7 @@ export default (state = initialState, action) => {
                 username: action.payload.username,
                 email: action.payload.email,
                 followers: action.payload.followers,
+                following: action.payload.following
             }
         default:
             return state;

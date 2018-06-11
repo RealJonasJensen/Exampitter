@@ -5,7 +5,8 @@ import * as actions from "../../store/actions/index";
 
 import "./Dashboard.css";
 
-import DashboardInfo from "../DashboardInfo/DashboardInfo";
+import DashboardInfo from "./DashboardInfo/DashboardInfo";
+import Posts from "./Posts/Posts";
 
 class Dashboard extends Component {
 
@@ -43,13 +44,13 @@ class Dashboard extends Component {
                 </div>
                 <div className="dashboard-item dash-item2">
                     Feed
-
                     <div className="dashboard-item-input">
                         <form action="">
                             <input type="text" name="message" value={this.state.message} onChange={this.changeInputHandler} placeholder="What do you want to share?" />
                             <button>Post </button>
                         </form>
                     </div>
+                    <Posts />
                 </div>
                 <div className="dashboard-item dash-item3">
                     New Users
