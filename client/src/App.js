@@ -12,12 +12,12 @@ import Landing from "./Containers/Landing/Landing";
 import Dashboard from "./Components/Dashboard/Dashboard";
 import Login from "./Containers/Login/Login";
 import Register from "./Containers/Register/Register";
+import User from "./Containers/User/User";
 import Logout from "./Components/Logout/Logout";
 import Aux from "./Hoc/Aux/Aux";
 
 import './App.css';
 import { setCurrentUser, logoutUser } from './store/actions/auth';
-
 
 // A check to keep you logged in through page refresh
 
@@ -38,11 +38,7 @@ if (localStorage.jwt) {
   }
 }
 
-
-
-
 class App extends Component {
-
 
   render() {
 
@@ -52,6 +48,7 @@ class App extends Component {
       <Aux>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/user/:id" component={User} />
         <Route exact path="/" component={Landing} />
       </Aux>
     )
@@ -61,6 +58,7 @@ class App extends Component {
         <Aux>
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/logout" component={Logout} />
+          <Route path="/user/:id" component={User} />
           <Route exact path="/" component={Dashboard} />
         </Aux>
       )

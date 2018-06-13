@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
                 loadingTop: true,
             }
         case actions.GET_TOP_USERS_SUCCESS:
-            console.log(action.payload)
+            // console.log(action.payload)
             return {
                 ...state,
                 topUsers: action.payload,
@@ -48,6 +48,36 @@ export default (state = initialState, action) => {
                 ...state,
                 loadingNew: false,
                 errorNew: action.payload
+            }
+        case actions.GET_POSTS_START:
+            return {
+                ...state,
+                loadingPosts: true
+            }
+        case actions.GET_POSTS_SUCCESS:
+            const posts = state.posts;
+            action.payload.forEach(item => posts.push(item))
+            // console.log(posts);
+            return {
+                ...state,
+                loadingPosts: false,
+                posts: posts
+            }
+        case actions.GET_POSTS_FAILURE:
+            return {
+                ...state,
+                loadingPosts: false,
+                errorPosts: action.payload
+            }
+        case actions.CLEAR_USER:
+            return {
+                ...state,
+                posts: [],
+                topUsers: [],
+                newUsers: [],
+                errorTop: null,
+                errorNew: null,
+                errorPosts: null,
             }
         default:
             return state;

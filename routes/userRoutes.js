@@ -26,6 +26,21 @@ router.get("/", (req, res) => {
         })
 })
 
+// @route    Get api/users/user/:id
+// @desc     Get User By ID
+// @access   Public
+router.get("/user/:id", (req, res) => {
+    User.findOne({ _id: req.params.id }, { username: 1, avatar: 1, followers: 1, following: 1 })
+        .populate("following.user", ["avatar", "_id", "username"])
+        .populate("followers.user", ["avatar", "_id", "username"])
+        .then(user => {
+            return res.json(user)
+        })
+        .catch(err => {
+            return res.status(404).json({ noUsers: "No user found" })
+        })
+})
+
 // @route    Get api/users/newest
 // @desc     Get the 5 newest users
 // @access   Public
@@ -101,6 +116,8 @@ router.post("/register", async (req, res) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
                     if (err) console.log(err);
                     newUser.password = hash;
+                    const newFollower = { user: newUser._id };
+                    newUser.following.push(newFollower);
                     newUser
                         .save()
                         .then(user => res.json(user))
@@ -109,6 +126,10 @@ router.post("/register", async (req, res) => {
             })
         }
     }
+
+
+
+
 
 })
 
@@ -178,14 +199,14 @@ router.get("/current", passport.authenticate("jwt", { session: false }), (req, r
 // @route       POST api/users/:id/follow/
 // @desc        Follow a user
 // @access      Private
-router.post("/:id/follow", passport.authenticate("jwt", { session: false }), async (req, res) => {
-    await User.findById(req.params.id)
+router.post("/:id/follow", passport.authenticate("jwt", { session: false }), (req, res) => {
+    User.findById(req.params.id)
         .then(user => {
             // console.log(user)
             // Check if already following
             const alreadyFollowing = user.followers.filter(follower => follower.user._id.toString() == req.user.id)
             console.log(alreadyFollowing)
-            if (alreadyFollowing.length > 0) {
+            if (alreadyFollowing.length >= 1) {
                 return res.status(400).json({ alreadyFollow: "You already follow this user" })
             }
 
@@ -212,7 +233,7 @@ router.post("/:id/follow", passport.authenticate("jwt", { session: false }), asy
         .catch(err => {
             res.status(404).json({ noUser: "No user found" })
         })
-    await console.log("Logged in:" + req.user.id, "Person to follow:" + req.params.id)
+    // console.log("Logged in:" + req.user.id, "Person to follow:" + req.params.id)
 })
 
 // @route       POST api/users/:id/unfollow/

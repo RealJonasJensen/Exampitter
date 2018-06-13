@@ -5,7 +5,8 @@ const initialState = {
     avatar: null,
     username: null,
     email: null,
-    followers: null,
+    followers: [],
+    following: [],
 }
 
 export default (state = initialState, action) => {
@@ -19,6 +20,15 @@ export default (state = initialState, action) => {
                 email: action.payload.email,
                 followers: action.payload.followers,
                 following: action.payload.following
+            }
+        case actions.CLEAR_USER:
+            return {
+                id: null,
+                avatar: null,
+                username: null,
+                email: null,
+                followers: [],
+                following: [],
             }
         default:
             return state;

@@ -59,3 +59,84 @@ export const getNewUsersFailure = error => {
         payload: error
     }
 }
+
+export const getPosts = user => dispatch => {
+    dispatch(getPostsStart());
+    //console.log(following)
+    let posts = [];
+    console.log(user)
+    axios.get("api/posts/user/" + user)
+        .then(response => {
+            response.data.forEach(message => {
+                posts.push(message)
+            })
+            dispatch(getPostsSuccess(posts))
+        })
+        .catch(err => dispatch(getPostsFailure(err.response)))
+
+}
+
+export const getPostsStart = () => {
+    return {
+        type: actions.GET_POSTS_START,
+    }
+}
+
+export const getPostsFailure = error => {
+
+    return {
+        type: actions.GET_POSTS_FAILURE,
+        payload: error
+    }
+}
+
+export const getPostsSuccess = data => {
+    return {
+        type: actions.GET_POSTS_SUCCESS,
+        payload: data
+
+    }
+}
+
+export const createPost = data => dispatch => {
+    axios.post("/api/posts/", data)
+        .then(response => dispatch(getPosts()))
+        .catch(error => dispatch(createPostError(error.response)))
+}
+
+export const createPostSuccess = data => {
+
+}
+
+export const createPostError = error => {
+    return {
+        type: actions.CREATE_POST_FAILURE,
+        payload: error
+    }
+}
+
+export const likePost = (postId) => dispatch => {
+    axios.post("/api/posts/like/" + postId)
+        .then(response => console.log(response.data))
+        .catch(err => dispatch(likePostFailure(err.response)))
+}
+
+export const likePostFailure = err => {
+    return {
+        type: actions.LIKE_POST_FAILURE,
+        payload: err
+    }
+}
+
+export const unLikePost = (postId) => dispatch => {
+    axios.post("/api/posts/unlike/" + postId)
+        .then(response => console.log(response.data))
+        .catch(err => dispatch(unLikePostFailure(err.response)))
+}
+
+export const unLikePostFailure = err => {
+    return {
+        type: actions.UNLIKE_POST_FAILURE,
+        payload: err
+    }
+}

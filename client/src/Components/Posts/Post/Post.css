@@ -9,3 +9,11 @@
 .post-avatar img {
     width: 100%;
 }
+
+.post p {
+    display: block;
+}
+
+.post-like {
+    cursor: pointer;
+}

@@ -7,7 +7,7 @@ import "./DashboardInfoItem.css";
 const DashboardInfoItem = (props) => {
     return (
         <div className="dashboard-info-item">
-            <div><img src={process.env.PUBLIC_URL + "/Images/" + props.avatar} alt="" /></div>
+            <div><img src={process.env.PUBLIC_URL + "/Images/" + props.avatar} alt={props.username} /></div>
             <div className="dashboard-info-item-text">
                 <p>{props.username}</p>
                 <p>{props.info} {props.children}</p>

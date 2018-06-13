@@ -41,6 +41,9 @@ export const logoutUser = () => dispatch => {
     localStorage.removeItem("jwt")
     setAuthToken(false)
     dispatch(setCurrentUser({}))
+    dispatch({
+        type: actions.CLEAR_USER,
+    })
 }
 
 export const registerUser = (userdata, history) => dispatch => {

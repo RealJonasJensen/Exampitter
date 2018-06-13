@@ -35,6 +35,7 @@ router.get("/:id", (req, res) => {
 // @access   Public
 router.get("/user/:id", (req, res) => {
     Post.find({ user: req.params.id })
+        .populate("user", ["avatar", "username"])
         .then(posts => res.json(posts))
         .catch(err => res.status(404).json({ noPosts: "No posts found for this user" }))
 })

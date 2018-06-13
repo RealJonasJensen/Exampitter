@@ -4,10 +4,12 @@ import authReducer from "./authReducer";
 import errorReducer from "./errorReducer";
 import userReducer from "./userReducer";
 import newsReducer from "./newsReducer";
+import pageReducer from "./pageReducer";
 
 export default combineReducers({
     auth: authReducer,
     error: errorReducer,
     user: userReducer,
-    post: newsReducer
+    news: newsReducer,
+    page: pageReducer
 })

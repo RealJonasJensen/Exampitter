@@ -14,6 +14,11 @@ const DashboardInfo = (props) => {
         } else if (props.children === "Created") {
             const date = item.dayMonthyear
             return <DashboardInfoItem key={i} avatar={item.avatar} username={item.username}>{"Created at: " + date}</DashboardInfoItem >
+        } else if (props.children === "Following") {
+            //console.log(item)
+            return <DashboardInfoItem key={i} avatar={item.user.avatar} username={item.user.username} />
+        } else if (props.children === "Follower") {
+            return <DashboardInfoItem key={i} avatar={item.user.avatar} username={item.user.username} />
         }
         return null;
     }
