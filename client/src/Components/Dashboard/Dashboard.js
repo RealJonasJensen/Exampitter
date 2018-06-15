@@ -13,6 +13,9 @@ class Dashboard extends Component {
     state = {
         message: "",
     }
+
+    // On Mount. Get Top and New Users. If you are unauthenticated and the user is not set.
+
     componentWillMount() {
         if (this.props.auth.isAuthenticated && this.props.user !== {}) {
             this.props.onGetCurrentUser();
@@ -38,6 +41,12 @@ class Dashboard extends Component {
         }
     }
 
+
+
+    componentDidUpdate() {
+        console.log("HEJ")
+    }
+
     changeInputHandler = (event) => {
         event.preventDefault();
         this.setState({ [event.target.name]: event.target.value })
@@ -45,7 +54,7 @@ class Dashboard extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        const data = { text: this.state.message };
+        const data = { text: this.state.message, avatar: this.props.user.avatar };
         this.props.onCreatePost(data);
     }
 

@@ -12,6 +12,7 @@ class Posts extends Component {
     likeHandler = (id) => {
         //console.log(id);
         this.props.onLikePost(id);
+        //this.props.onGetPosts(id)
     }
 
     unLikeHandler = (id) => {
@@ -49,8 +50,8 @@ class Posts extends Component {
                 status = "Like";
             }
             return (
-                <Post key={post._id + index} status={status} clicked={handler} username={post.user.username}
-                    avatar={post.user.avatar} text={post.text} likes={post.likes.length} id={post._id} />
+                <Post key={post._id + index} status={status} clicked={handler} username={post.username}
+                    avatar={post.avatar} text={post.text} likes={post.likes.length} id={post._id} comments={post.comments} />
             )
 
 
@@ -67,7 +68,7 @@ class Posts extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         onLikePost: (id) => dispatch(actions.likePost(id)),
-        onUnLikePost: (id) => dispatch(actions.unLikePost(id))
+        onUnLikePost: (id) => dispatch(actions.unLikePost(id)),
     }
 }
 

@@ -26,6 +26,7 @@ router.get("/", (req, res) => {
 // @access   Public
 router.get("/:id", (req, res) => {
     Post.findById(req.params.id)
+        .populate("comments.user", ["avatar", "username",])
         .then(post => res.json(post))
         .catch(err => res.status(404).json({ noPost: "No post found" }))
 })
@@ -35,6 +36,7 @@ router.get("/:id", (req, res) => {
 // @access   Public
 router.get("/user/:id", (req, res) => {
     Post.find({ user: req.params.id })
+        .populate("comments.user", ["avatar", "username",])
         .populate("user", ["avatar", "username"])
         .then(posts => res.json(posts))
         .catch(err => res.status(404).json({ noPosts: "No posts found for this user" }))
@@ -53,7 +55,9 @@ router.post("/", passport.authenticate("jwt", { session: false }),
 
         const newPost = new Post({
             text: req.body.text,
-            user: req.user.id
+            user: req.user.id,
+            avatar: req.user.avatar,
+            username: req.user.username
         })
 
         newPost.save().then(post => res.json(post))
@@ -67,14 +71,13 @@ router.delete("/:id",
     passport.authenticate("jwt", { session: false }),
     (req, res) => {
         User.findOne({ user: req.user.id })
-            .then(profile => {
+            .then(user => {
                 Post.findById(req.params.id)
                     .then(post => {
                         // Check post owner
                         if (post.user.toString() !== req.user.id) {
                             return res.status(401).json({ notAuthorized: "User is not authorized" })
                         }
-
                         post.remove().then(() => res.json({ success: true }));
                     })
                     .catch(err => res.status(404).json({ postnotfound: "Post not found" }))
@@ -134,13 +137,13 @@ router.post("/:id/comment", passport.authenticate("jwt", { session: false }), (r
         return res.status(400).json(errors);
     }
 
-
-
     Post.findById(req.params.id)
         .then(post => {
             const newComment = {
                 user: req.user.id,
-                text: req.body.text
+                text: req.body.text,
+                avatar: req.user.avatar,
+                username: req.user.username
             }
             // Push comment to post
             post.comments.push(newComment);
@@ -158,14 +161,14 @@ router.delete("/:postId/comment/:commentId", passport.authenticate("jwt", { sess
     // Find the Post
     Post.findById(req.params.postId)
         .then(post => {
-
             //Check if comment exists
             const comment = post.comments.filter(comment => comment._id.toString() === req.params.commentId);
             if (comment.length == 0) {
                 return res.status(404).json({ comment: "Comment does not exist" });
             }
-            const commentIndex = post.comments.map(comment => comment._id.toString()).indexOf(req.params.commentId);
 
+
+            const commentIndex = post.comments.map(comment => comment._id.toString()).indexOf(req.params.commentId);
             // Remove comment
             post.comments.splice(commentIndex, 1);
             // Save

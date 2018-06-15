@@ -9,6 +9,10 @@ const postSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    username: {
+        type: String,
+        required: true,
+    },
     likes: [
         {
             user: {
@@ -30,9 +34,22 @@ const postSchema = new mongoose.Schema({
             date: {
                 type: Date,
                 default: Date.now
+            },
+            username: {
+                type: String,
+                required: true,
+            },
+            avatar: {
+                type: String,
+                default: "no_image.png"
             }
         }
     ],
+
+    avatar: {
+        type: String,
+        default: "no_image.png"
+    },
 
     date: {
         type: Date,

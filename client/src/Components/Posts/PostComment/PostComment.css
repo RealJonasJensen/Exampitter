@@ -1,0 +1,8 @@
+.post-comments-comment{
+    display: grid;
+    grid-template-columns: 10% 90%;
+}
+
+.post-comments-img img {
+    width: 100%;
+}

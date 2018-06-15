@@ -126,11 +126,6 @@ router.post("/register", async (req, res) => {
             })
         }
     }
-
-
-
-
-
 })
 
 // @route    POST api/users/login

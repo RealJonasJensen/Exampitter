@@ -1,6 +1,8 @@
 import * as actions from "./actionTypes";
 import axios from "axios";
 
+// Get top users in the feed
+
 export const getTopUsers = () => dispatch => {
     dispatch(getTopUsersStart())
     axios.get("/api/users/top")
@@ -32,6 +34,7 @@ export const getTopUsersFailure = error => {
     }
 }
 
+// Get new users in the feed
 
 export const getNewUsers = () => dispatch => {
     dispatch(getNewUsersStart())
@@ -59,6 +62,8 @@ export const getNewUsersFailure = error => {
         payload: error
     }
 }
+
+// Get Posts From Following
 
 export const getPosts = user => dispatch => {
     dispatch(getPostsStart());
@@ -98,14 +103,19 @@ export const getPostsSuccess = data => {
     }
 }
 
+// Create Post
+
 export const createPost = data => dispatch => {
     axios.post("/api/posts/", data)
-        .then(response => dispatch(getPosts()))
+        .then(response => dispatch(createPostSuccess(response.data)))
         .catch(error => dispatch(createPostError(error.response)))
 }
 
 export const createPostSuccess = data => {
-
+    return {
+        type: actions.CREATE_POST_SUCCESS,
+        payload: data
+    }
 }
 
 export const createPostError = error => {
@@ -114,6 +124,8 @@ export const createPostError = error => {
         payload: error
     }
 }
+
+// Like Post
 
 export const likePost = (postId) => dispatch => {
     axios.post("/api/posts/like/" + postId)
@@ -128,6 +140,8 @@ export const likePostFailure = err => {
     }
 }
 
+// Unlike Post
+
 export const unLikePost = (postId) => dispatch => {
     axios.post("/api/posts/unlike/" + postId)
         .then(response => console.log(response.data))
@@ -139,4 +153,35 @@ export const unLikePostFailure = err => {
         type: actions.UNLIKE_POST_FAILURE,
         payload: err
     }
+}
+
+// Create Comment
+
+export const createComment = (postId, comment) => dispatch => {
+    const data = { text: comment };
+    axios.post("/api/posts/" + postId + "/comment", data)
+        .then(response => dispatch(createCommentSuccess(response.data)))
+        .catch(err => dispatch(createCommentFailure(err.data)))
+}
+
+export const createCommentSuccess = data => {
+    return {
+        type: actions.CREATE_COMMENT_SUCCESS,
+        payload: data
+    }
+}
+
+export const createCommentFailure = error => {
+    return {
+        type: actions.CREATE_COMMENT_FAILURE,
+        payload: error
+    }
+}
+
+// Delete Comment
+
+export const deletePost = id => dispatch => {
+    axios.delete("/api/posts/" + id)
+        .then(response => console.log(response.data))
+        .catch(err => console.log(err.data))
 }

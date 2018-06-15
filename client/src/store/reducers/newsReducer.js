@@ -79,6 +79,33 @@ export default (state = initialState, action) => {
                 errorNew: null,
                 errorPosts: null,
             }
+        case actions.CREATE_POST_SUCCESS:
+            //console.log(action.payload)
+            return {
+                ...state,
+                posts: [action.payload, ...state.posts]
+            }
+        case actions.CREATE_COMMENT_SUCCESS:
+            // console.log(action.payload);
+            // console.log(state.posts);
+            const a = state.posts.map(post => {
+                if (post._id.toString() === action.payload._id.toString()) {
+                    const newComment = action.payload.comments.pop()
+                    return {
+                        ...post,
+                        comments: [...post.comments, newComment]
+                    }
+                }
+                return {
+                    ...post
+                }
+            })
+            //console.log(a)
+            return {
+                ...state,
+                errorPosts: null,
+                posts: a
+            }
         default:
             return state;
     }
