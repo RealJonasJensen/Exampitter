@@ -11,9 +11,13 @@ const PostComment = props => {
             <div className="post-comments-img">
                 <img src={process.env.PUBLIC_URL + "/Images/" + props.avatar} alt="" />
             </div>
-            {props.username}
-            <div className="post-comments-text">
-                {props.text}
+            <div>
+                <p className="post-comments-username">
+                    {props.username}
+                </p>
+                <div className="post-comments-text">
+                    <p> {props.text} </p>
+                </div>
             </div>
         </div>
     )

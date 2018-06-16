@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 
+import "./Register.css";
+
 class Register extends Component {
 
     state = {
@@ -28,12 +30,13 @@ class Register extends Component {
 
     render() {
         return (
-            <div>Register
-            <form>
-                    <input type="text" name="email" onChange={this.onChangeInputHandler} value={this.state.email} placeholder="email" />
-                    <input type="text" name="username" onChange={this.onChangeInputHandler} value={this.state.username} placeholder="username" />
-                    <input type="password" name="password" onChange={this.onChangeInputHandler} value={this.state.password} placeholder="password" />
-                    <input type="password" name="password2" onChange={this.onChangeInputHandler} value={this.state.password2} placeholder="repeat password" />
+            <div className="register">
+                <h2>Create a profile!</h2>
+                <form>
+                    <input type="text" name="email" onChange={this.onChangeInputHandler} value={this.state.email} placeholder="Email" />
+                    <input type="text" name="username" onChange={this.onChangeInputHandler} value={this.state.username} placeholder="Username" />
+                    <input type="password" name="password" onChange={this.onChangeInputHandler} value={this.state.password} placeholder="Password" />
+                    <input type="password" name="password2" onChange={this.onChangeInputHandler} value={this.state.password2} placeholder="Repeat Password" />
                     <button onClick={this.onSubmitHandler}>Register</button>
                 </form>
             </div>

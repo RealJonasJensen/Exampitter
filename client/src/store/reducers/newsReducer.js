@@ -10,6 +10,7 @@ const initialState = {
     errorTop: null,
     errorNew: null,
     errorPosts: null,
+    likedPost: false,
 }
 
 export default (state = initialState, action) => {
@@ -20,7 +21,6 @@ export default (state = initialState, action) => {
                 loadingTop: true,
             }
         case actions.GET_TOP_USERS_SUCCESS:
-            // console.log(action.payload)
             return {
                 ...state,
                 topUsers: action.payload,
@@ -86,26 +86,44 @@ export default (state = initialState, action) => {
                 posts: [action.payload, ...state.posts]
             }
         case actions.CREATE_COMMENT_SUCCESS:
-            // console.log(action.payload);
-            // console.log(state.posts);
-            const a = state.posts.map(post => {
+            const newPosts = state.posts.map(post => {
                 if (post._id.toString() === action.payload._id.toString()) {
                     const newComment = action.payload.comments.pop()
                     return {
                         ...post,
-                        comments: [...post.comments, newComment]
+                        comments: [newComment, ...post.comments]
                     }
                 }
-                return {
-                    ...post
-                }
+                return { ...post }
             })
-            //console.log(a)
             return {
                 ...state,
                 errorPosts: null,
-                posts: a
+                posts: newPosts
             }
+        case actions.LIKE_POST_SUCCESS:
+            // console.log(action.payload)
+            const newLikePosts = state.posts.map(post => {
+                if (post._id.toString() === action.payload._id.toString()) {
+                    const newLike = action.payload.likes.pop()
+                    return {
+                        ...post,
+                        likes: [...post.likes, newLike]
+                    }
+                }
+                return { ...post }
+            })
+            return {
+                ...state,
+                posts: newLikePosts
+            }
+        case actions.UNLIKE_POST_SUCCESS:
+            console.log(action.payload)
+            return {
+                ...state,
+            }
+
+
         default:
             return state;
     }

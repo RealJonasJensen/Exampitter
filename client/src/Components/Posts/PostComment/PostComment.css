@@ -1,8 +1,23 @@
 .post-comments-comment{
     display: grid;
     grid-template-columns: 10% 90%;
+    padding: 3%;
+    grid-gap: 10px;
+    border-bottom: 1px solid black;
+    width: 95%;
+}
+
+.post-comments-username {
+    font-size: .8em;
+    font-weight: bold;
 }
 
 .post-comments-img img {
     width: 100%;
+}
+
+.post-comments-text {
+    grid-column: 1 / 5;
+    padding-top: 2%;
+    font-size: .8em;
 }

@@ -54,17 +54,12 @@ class Dashboard extends Component {
 
     submitHandler = (event) => {
         event.preventDefault();
-        const data = { text: this.state.message, avatar: this.props.user.avatar };
+        const data = { text: this.state.message };
         this.props.onCreatePost(data);
+        this.setState({ message: "" })
     }
 
     render() {
-
-        let dashboard = "Dashboard"
-
-        if (this.props.auth) {
-            dashboard = "Logged in"
-        }
 
         let topUsers = "Loading Top Users..."
         if (!this.props.news.loadingTop) {
@@ -88,7 +83,6 @@ class Dashboard extends Component {
                     {topUsers}
                 </div>
                 <div className="dashboard-item dash-item2">
-                    Feed
                     <div className="dashboard-item-input">
                         <form onSubmit={this.submitHandler} >
                             <input type="text" name="message" value={this.state.message} onChange={this.changeInputHandler} placeholder="What do you want to share?" />
@@ -101,7 +95,6 @@ class Dashboard extends Component {
                     New Users
                     {newUsers}
                 </div>
-                {dashboard}
             </div>
         )
     }

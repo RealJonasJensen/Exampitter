@@ -1,23 +1,28 @@
 .dashboard {
     width: 1024px;
     margin: 0 auto;
-    border: 1px solid black;
     display: grid;
     grid-template-columns: 20% 60% 20%;
 }
 
-.dashboard-item {
-    border: solid 1px black;
-}
 
 .dashboard-item-input input {
     width: 80%;
+    padding: 1% 1%;
+    border-radius: 5px;
+    border: 1px solid black;
+    margin-right: 1%;
+    
 }
 
 .dashboard-item-input button {
-    width: 20%;
+    width: 19%;
+    padding: 1%;
+    border-radius: 5px;
+    border: 1px solid black;
+    cursor: pointer;
 }
 
 .dashboard-item-input {
-    border-bottom: 1px solid black;
+    padding:  4% 5% 3%;
 }

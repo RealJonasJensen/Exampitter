@@ -1,0 +1,20 @@
+.login {
+    padding-top: 2%;
+    width: 50%;
+}
+
+.login form input {
+    padding: 5px;
+    margin: 0 1px; 
+    width: 40%;
+    border: none;
+    border-radius: 1px;
+}
+
+.login form button {
+    width: 18%;
+    padding: 5px;
+    border: none;
+    border-radius: 1px;
+    cursor: pointer;
+}

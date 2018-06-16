@@ -129,8 +129,15 @@ export const createPostError = error => {
 
 export const likePost = (postId) => dispatch => {
     axios.post("/api/posts/like/" + postId)
-        .then(response => console.log(response.data))
+        .then(response => dispatch(likePostSuccess(response.data)))
         .catch(err => dispatch(likePostFailure(err.response)))
+}
+
+export const likePostSuccess = data => {
+    return {
+        type: actions.LIKE_POST_SUCCESS,
+        payload: data
+    }
 }
 
 export const likePostFailure = err => {
@@ -142,10 +149,21 @@ export const likePostFailure = err => {
 
 // Unlike Post
 
-export const unLikePost = (postId) => dispatch => {
+export const unLikePost = (postId, userId) => dispatch => {
     axios.post("/api/posts/unlike/" + postId)
-        .then(response => console.log(response.data))
-        .catch(err => dispatch(unLikePostFailure(err.response)))
+        .then(response => dispatch(unLikePostSuccess(response.data, userId)))
+        .catch(err => {
+            dispatch(unLikePostFailure(err.response))
+            console.log(err)
+        }
+        )
+}
+
+export const unLikePostSuccess = (data, userId) => {
+    return {
+        type: actions.UNLIKE_POST_SUCCESS,
+        payload: { data, userId }
+    }
 }
 
 export const unLikePostFailure = err => {

@@ -15,9 +15,9 @@ class Posts extends Component {
         //this.props.onGetPosts(id)
     }
 
-    unLikeHandler = (id) => {
+    unLikeHandler = (id, userId) => {
         //console.log(id);
-        this.props.onUnLikePost(id);
+        this.props.onUnLikePost(id, this.props.user.id);
     }
 
     render() {
@@ -28,7 +28,8 @@ class Posts extends Component {
             const dateB = new Date(b.date);
             return dateB - dateA;
         });
-        console.log(posts1)
+        //console.log(posts1)
+        console.log(this.props.user)
 
         const posts = posts1.map((post, index) => {
 
@@ -68,7 +69,7 @@ class Posts extends Component {
 const mapDispatchToProps = dispatch => {
     return {
         onLikePost: (id) => dispatch(actions.likePost(id)),
-        onUnLikePost: (id) => dispatch(actions.unLikePost(id)),
+        onUnLikePost: (id, userId) => dispatch(actions.unLikePost(id, userId)),
     }
 }
 

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+import "./Login.css";
+
 import * as actions from "../../store/actions/index";
 
 class Login extends Component {
@@ -25,10 +27,10 @@ class Login extends Component {
 
     render() {
         return (
-            <div>Login
+            <div className="login">
                 <form>
-                    <input type="text" name="email" placeholder="email" onChange={this.onChangeInputHandler} value={this.state.email} />
-                    <input type="password" name="password" placeholder="password" onChange={this.onChangeInputHandler} value={this.state.password} />
+                    <input type="text" name="email" placeholder="Email" onChange={this.onChangeInputHandler} value={this.state.email} />
+                    <input type="password" name="password" placeholder="Password" onChange={this.onChangeInputHandler} value={this.state.password} />
                     <button onClick={this.onSubmitHandler}>Login</button>
                 </form>
             </div>

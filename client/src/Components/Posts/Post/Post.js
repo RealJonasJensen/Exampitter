@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import { withRouter } from "react-router-dom"
+import { withRouter, NavLink } from "react-router-dom"
 
 import { connect } from "react-redux";
 
@@ -36,6 +36,7 @@ class Post extends Component {
     submitComment = (event) => {
         event.preventDefault();
         this.props.onSubmitComment(this.props.id, this.state.comment);
+        this.setState({ comment: "" })
     }
 
 
@@ -56,22 +57,25 @@ class Post extends Component {
                 <div className="post" >
                     <div className="post-avatar"><img src={process.env.PUBLIC_URL + "/Images/" + this.props.avatar} alt="" /></div>
                     <div>
-                        <p>{this.props.username}</p>
-                        <p>{this.props.text}</p>
-                        <p>{this.props.likes === 1 ? this.props.likes + " Like" : this.props.likes + " Likes"}</p>
-                        <p className="post-like" onClick={() => this.onLikeClick(this.props.id)} >{this.props.status}</p>
-                        <p onClick={this.onToggleComments} >Show Comments</p>
-                        <p onClick={() => this.props.onDeletePost(this.props.id)} >Delete Post</p>
+                        <NavLink to={"/user/" + this.props.user.id}><p className="post-username">{this.props.username}</p></NavLink>
+                        <p className="post-text">{this.props.text}</p>
+                        <div className="post-info">
+                            <div><p>{this.props.likes === 1 ? this.props.likes + " Like" : this.props.likes + " Likes"}</p></div>
+                            <div><p className="post-like" onClick={() => this.onLikeClick(this.props.id)} >{this.props.status}</p></div>
+                            <div><p className="post-comment-btn" onClick={this.onToggleComments} >Show Comments</p></div>
+                            <div><p className="post-delete" onClick={() => this.props.onDeletePost(this.props.id)} >Delete Post</p></div>
+                        </div>
 
                     </div>
-                </div>
-                <div className="post-comments">
-                    <div className="post-create-comment">
-                        <form onSubmit={this.submitComment} >
-                            <input type="text" onChange={this.changePostHandler} className="post-input" placeholder="Write Comment" name="comment" value={this.state.comment} />
-                        </form>
+                    <div className="post-comments">
+                        <div className="post-create-comment">
+                            <form onSubmit={this.submitComment} >
+                                <input type="text" onChange={this.changePostHandler} className="post-input" placeholder="Write Comment" name="comment" value={this.state.comment} />
+                                <button type="submit" className="post-btn"> Comment </button>
+                            </form>
+                        </div>
+                        {this.state.showComments ? comments : null}
                     </div>
-                    {this.state.showComments ? comments : null}
                 </div>
             </Aux >
         )

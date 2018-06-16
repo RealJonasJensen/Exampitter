@@ -14,6 +14,12 @@ class User extends Component {
         this.props.onGetUserPagePosts(this.props.match.params.id)
     }
 
+    // componentWillUpdate() {
+
+    //     this.props.onGetUserPage(this.props.match.params.id)
+    //     this.props.onGetUserPagePosts(this.props.match.params.id)
+    // }
+
     render() {
 
         let following = null;

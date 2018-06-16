@@ -4,23 +4,21 @@ import { connect } from "react-redux";
 
 import "./Toolbar.css"
 
+import Login from "../../Containers/Login/Login";
+
 class Toolbar extends Component {
 
     render() {
 
 
         let items = (
-            <div>
-                <NavLink to="/login">Login</NavLink>
-                <NavLink to="/register">Register</NavLink>
-
-            </div>
+            <Login />
         )
 
         if (this.props.auth.isAuthenticated) {
             items = (
-                <div>
-                    <NavLink to="/">{this.props.auth.user.username}</NavLink>
+                <div className="toolbar-links">
+                    <NavLink to={"/user/" + this.props.auth.user.id}>{this.props.auth.user.username}</NavLink>
                     <NavLink to="/logout">Logout</NavLink>
                 </div>
             )
@@ -30,7 +28,7 @@ class Toolbar extends Component {
         return (
             <div className="toolbar" >
                 <div className="toolbar-items">
-                    <div>Exampitter</div>
+                    <div><h1>Exampitter</h1></div>
                     {items}
                 </div>
             </div>

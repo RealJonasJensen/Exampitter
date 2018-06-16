@@ -2,6 +2,8 @@ import React, { Component } from "react";
 
 import "./Landing.css";
 
+import Register from "../../Components/Register/Register";
+
 
 class Landing extends Component {
 
@@ -15,9 +17,14 @@ class Landing extends Component {
         return (
             <div className="landing">
                 <div className="landing-info">
-                    <div onClick={() => { this.onClickHandler("login") }}>Login</div>
-                    <div onClick={() => { this.onClickHandler("register") }} >Register</div>
-                    <div onClick={() => { this.onClickHandler("dashboard") }} className="item3">Take a tour</div>
+                    <div className="landing-register">
+                        <Register />
+                    </div>
+                    <div className="landing-tour">
+                        <h2>Welcome to Exampitter!</h2>
+                        <h3>Share your thoughts with the world!</h3>
+                        <div className="landing-tour-btn" onClick={() => { this.onClickHandler("dashboard") }}>Take a tour</div>
+                    </div>
                 </div>
             </div>
         )
