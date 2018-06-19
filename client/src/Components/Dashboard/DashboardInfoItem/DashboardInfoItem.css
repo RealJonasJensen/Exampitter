@@ -5,6 +5,10 @@
     border-bottom:1px solid rgb(255, 0, 0);
 }
 
+.dashboard-info-link {
+    text-decoration: none;
+}
+
 .dashboard-info-item-text {
     padding: 5%;
 }
@@ -12,6 +16,7 @@
 .dashboard-info-item-text p {
     font-size: .85em;
     padding: 2%;
+    color: green; 
 }
 
 .dashboard-info-item img {

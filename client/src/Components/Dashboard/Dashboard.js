@@ -31,21 +31,16 @@ class Dashboard extends Component {
     // }
 
     componentWillUpdate(nextProps) {
-        console.log(nextProps)
+        //console.log(nextProps)
         if (this.props.user.following !== nextProps.user.following) {
-            console.log(nextProps.user.following)
+            //  console.log(nextProps.user.following)
             nextProps.user.following.forEach(user => {
                 this.props.onGetPosts(user.user)
-                console.log(user.user)
+                //    console.log(user.user)
             });
         }
     }
 
-
-
-    componentDidUpdate() {
-        console.log("HEJ")
-    }
 
     changeInputHandler = (event) => {
         event.preventDefault();

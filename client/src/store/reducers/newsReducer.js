@@ -11,6 +11,7 @@ const initialState = {
     errorNew: null,
     errorPosts: null,
     likedPost: false,
+    error: {}
 }
 
 export default (state = initialState, action) => {
@@ -49,19 +50,24 @@ export default (state = initialState, action) => {
                 loadingNew: false,
                 errorNew: action.payload
             }
+
+        // Get posts
+
         case actions.GET_POSTS_START:
             return {
                 ...state,
                 loadingPosts: true
             }
         case actions.GET_POSTS_SUCCESS:
-            const posts = state.posts;
-            action.payload.forEach(item => posts.push(item))
+            //console.log(action.payload)
+            const posts = [...action.payload];
+            // action.payload.forEach(item => posts.push(item))
             // console.log(posts);
+
             return {
                 ...state,
                 loadingPosts: false,
-                posts: posts
+                posts: [...state.posts, ...posts]
             }
         case actions.GET_POSTS_FAILURE:
             return {
@@ -85,7 +91,10 @@ export default (state = initialState, action) => {
                 ...state,
                 posts: [action.payload, ...state.posts]
             }
-        case actions.CREATE_COMMENT_SUCCESS:
+
+        // Create Comment
+
+        case actions.DASHBOARD_CREATE_COMMENT_SUCCESS:
             const newPosts = state.posts.map(post => {
                 if (post._id.toString() === action.payload._id.toString()) {
                     const newComment = action.payload.comments.pop()
@@ -101,7 +110,10 @@ export default (state = initialState, action) => {
                 errorPosts: null,
                 posts: newPosts
             }
-        case actions.LIKE_POST_SUCCESS:
+
+        // Like post
+
+        case actions.DASHBOARD_LIKE_POST_SUCCESS:
             // console.log(action.payload)
             const newLikePosts = state.posts.map(post => {
                 if (post._id.toString() === action.payload._id.toString()) {
@@ -117,12 +129,46 @@ export default (state = initialState, action) => {
                 ...state,
                 posts: newLikePosts
             }
-        case actions.UNLIKE_POST_SUCCESS:
-            console.log(action.payload)
+
+        // Unlike Post
+
+        case actions.DASHBOARD_UNLIKE_POST_SUCCESS:
+            // console.log(action.payload)
+
+            const newUnLikePosts = state.posts.map(post => {
+                if (post._id.toString() === action.payload.data._id.toString()) {
+                    const newLikes = [...post.likes];
+                    newLikes.pop();
+
+                    return {
+                        ...post,
+                        likes: newLikes,
+                    }
+                }
+                return { ...post }
+            })
+
             return {
                 ...state,
+                posts: newUnLikePosts
             }
 
+        // Delete post
+
+        case actions.DASHBOARD_DELETE_POST_SUCCESS:
+            console.log(action.payload)
+            const deletedPosts = state.posts;
+            deletedPosts.pop()
+            return {
+                ...state,
+                posts: deletedPosts
+            }
+
+        case actions.DASHBOARD_DELETE_POST_FAILURE:
+            return {
+                ...state,
+                error: { dashboardDeleteError: action.payload }
+            }
 
         default:
             return state;

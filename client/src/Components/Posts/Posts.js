@@ -29,16 +29,15 @@ class Posts extends Component {
             return dateB - dateA;
         });
         //console.log(posts1)
-        console.log(this.props.user)
+        // console.log(this.props.user)
 
         const posts = posts1.map((post, index) => {
 
-            console.log(post.likes)
-            console.log(this.props.user.id)
+            //console.log(post)
+            // console.log(this.props.user.id)
 
             const alreadyLiked = post.likes.filter(like => like.user.toString() === this.props.user.id);
             // console.log(alreadyLiked)
-            console.log(alreadyLiked)
 
             let handler = null;
             let status = "";
@@ -52,7 +51,7 @@ class Posts extends Component {
             }
             return (
                 <Post key={post._id + index} status={status} clicked={handler} username={post.username}
-                    avatar={post.avatar} text={post.text} likes={post.likes.length} id={post._id} comments={post.comments} />
+                    avatar={post.avatar} text={post.text} likes={post.likes.length} id={post._id} comments={post.comments} userId={post.user._id} />
             )
 
 

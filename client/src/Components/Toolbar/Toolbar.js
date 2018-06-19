@@ -28,7 +28,7 @@ class Toolbar extends Component {
         return (
             <div className="toolbar" >
                 <div className="toolbar-items">
-                    <div><h1>Exampitter</h1></div>
+                    <div><NavLink to="/"><h1>Exampitter</h1></NavLink></div>
                     {items}
                 </div>
             </div>

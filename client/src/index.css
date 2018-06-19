@@ -8,3 +8,7 @@
 h1, h2,h3,h4 {
   font-family: 'Krona One', sans-serif;
 }
+
+body {
+  background-color: rgb(206, 201, 201);
+}

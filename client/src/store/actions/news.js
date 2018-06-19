@@ -69,7 +69,7 @@ export const getPosts = user => dispatch => {
     dispatch(getPostsStart());
     //console.log(following)
     let posts = [];
-    console.log(user)
+    //console.log(user)
     axios.get("api/posts/user/" + user)
         .then(response => {
             response.data.forEach(message => {
@@ -129,29 +129,57 @@ export const createPostError = error => {
 
 export const likePost = (postId) => dispatch => {
     axios.post("/api/posts/like/" + postId)
-        .then(response => dispatch(likePostSuccess(response.data)))
-        .catch(err => dispatch(likePostFailure(err.response)))
+        .then(response => {
+            dispatch(likePostSuccess(response.data))
+            dispatch(likePostPageSuccess(response.data))
+        }
+        )
+        .catch(err => {
+            dispatch(likePostFailure(err.response))
+            dispatch(likePostPageFailure(err.response))
+        }
+        )
 }
 
 export const likePostSuccess = data => {
     return {
-        type: actions.LIKE_POST_SUCCESS,
+        type: actions.DASHBOARD_LIKE_POST_SUCCESS,
         payload: data
     }
 }
 
 export const likePostFailure = err => {
     return {
-        type: actions.LIKE_POST_FAILURE,
+        type: actions.DASHBOARD_LIKE_POST_FAILURE,
         payload: err
     }
 }
+
+export const likePostPageSuccess = data => {
+    return {
+        type: actions.PAGE_LIKE_POST_SUCCESS,
+        payload: data
+    }
+}
+
+export const likePostPageFailure = err => {
+    return {
+        type: actions.PAGE_LIKE_POST_FAILURE,
+        payload: err
+    }
+}
+
+
 
 // Unlike Post
 
 export const unLikePost = (postId, userId) => dispatch => {
     axios.post("/api/posts/unlike/" + postId)
-        .then(response => dispatch(unLikePostSuccess(response.data, userId)))
+        .then(response => {
+            dispatch(unLikePostSuccess(response.data, userId))
+            dispatch(unLikePostPageSuccess(response.data))
+
+        })
         .catch(err => {
             dispatch(unLikePostFailure(err.response))
             console.log(err)
@@ -161,21 +189,28 @@ export const unLikePost = (postId, userId) => dispatch => {
 
 export const unLikePostSuccess = (data, userId) => {
     return {
-        type: actions.UNLIKE_POST_SUCCESS,
+        type: actions.DASHBOARD_UNLIKE_POST_SUCCESS,
         payload: { data, userId }
     }
 }
 
 export const unLikePostFailure = err => {
     return {
-        type: actions.UNLIKE_POST_FAILURE,
+        type: actions.DASHBOARD_UNLIKE_POST_FAILURE,
         payload: err
+    }
+}
+
+export const unLikePostPageSuccess = data => {
+    return {
+        type: actions.PAGE_UNLIKE_POST_SUCCESS,
+        payload: data
     }
 }
 
 // Create Comment
 
-export const createComment = (postId, comment) => dispatch => {
+export const createCommentDashboard = (postId, comment) => dispatch => {
     const data = { text: comment };
     axios.post("/api/posts/" + postId + "/comment", data)
         .then(response => dispatch(createCommentSuccess(response.data)))
@@ -184,14 +219,14 @@ export const createComment = (postId, comment) => dispatch => {
 
 export const createCommentSuccess = data => {
     return {
-        type: actions.CREATE_COMMENT_SUCCESS,
+        type: actions.DASHBOARD_CREATE_COMMENT_SUCCESS,
         payload: data
     }
 }
 
 export const createCommentFailure = error => {
     return {
-        type: actions.CREATE_COMMENT_FAILURE,
+        type: actions.DASHBOARD_CREATE_COMMENT_FAILURE,
         payload: error
     }
 }
@@ -200,6 +235,28 @@ export const createCommentFailure = error => {
 
 export const deletePost = id => dispatch => {
     axios.delete("/api/posts/" + id)
-        .then(response => console.log(response.data))
-        .catch(err => console.log(err.data))
+        .then(response => dispatch(deletePostDashboardSuccess(response.data)))
+        .catch(err => dispatch(deletePostDashboardFailure(err.response)))
+}
+
+export const deletePostDashboardSuccess = data => {
+    return {
+        type: actions.DASHBOARD_DELETE_POST_SUCCESS,
+        payload: data
+    }
+}
+
+export const deletePostDashboardFailure = error => {
+    return {
+        type: actions.DASHBOARD_DELETE_POST_FAILURE,
+        payload: error
+    }
+}
+
+// Clear User
+
+export const clearPosts = () => {
+    return {
+        type: actions.CLEAR_USER,
+    }
 }

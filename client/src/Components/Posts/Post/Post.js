@@ -18,13 +18,19 @@ class Post extends Component {
         comment: "",
     }
 
+    // componentDidMount() {
+    //     console.log(this.props.history.location.pathname.split("/")[1])
+    //     console.log(this.props.history.location)
+
+    // }
+
     changePostHandler = (event) => {
         this.setState({ [event.target.name]: event.target.value })
     }
 
     onLikeClick = (id) => {
         this.props.clicked(id);
-        console.log(this.props.history)
+        //console.log(this.props.history)
     }
 
     onToggleComments = () => {
@@ -35,7 +41,11 @@ class Post extends Component {
 
     submitComment = (event) => {
         event.preventDefault();
-        this.props.onSubmitComment(this.props.id, this.state.comment);
+        if (this.props.history.location.pathname === "/") {
+            this.props.onSubmitCommentDashboard(this.props.id, this.state.comment);
+        } else if (this.props.history.location.pathname.split("/")[1] === "user") {
+            this.props.onSubmitCommentPage(this.props.id, this.state.comment)
+        }
         this.setState({ comment: "" })
     }
 
@@ -45,13 +55,23 @@ class Post extends Component {
 
         let comments = "loading..."
         if (this.props.comments) {
-            comments = this.props.comments.map(comment => (
-                <PostComment key={comment._id} {...comment} />
-            ))
+            comments = this.props.comments.map(comment => {
+                console.log(comment)
+                return < PostComment key={comment._id} commentId={comment._id} postId={this.props.id} text={comment.text}
+                    avatar={comment.avatar} userId={comment.user._id} username={comment.username} />
+            })
+        };
 
+        // // Post user Id
+        // console.log(this.props.userId)
+        // // Logged in user Id
+        // console.log(this.props.user.id)
+
+        let deletePost = null;
+        if (this.props.userId === this.props.user.id) {
+            deletePost = <div><p className="post-delete" onClick={() => this.props.onDeletePost(this.props.id)} >Delete Post</p></div>;
         }
 
-        console.log(this.props.user)
         return (
             <Aux>
                 <div className="post" >
@@ -63,7 +83,7 @@ class Post extends Component {
                             <div><p>{this.props.likes === 1 ? this.props.likes + " Like" : this.props.likes + " Likes"}</p></div>
                             <div><p className="post-like" onClick={() => this.onLikeClick(this.props.id)} >{this.props.status}</p></div>
                             <div><p className="post-comment-btn" onClick={this.onToggleComments} >Show Comments</p></div>
-                            <div><p className="post-delete" onClick={() => this.props.onDeletePost(this.props.id)} >Delete Post</p></div>
+                            {deletePost}
                         </div>
 
                     </div>
@@ -84,7 +104,8 @@ class Post extends Component {
 
 const mapDisaptchToProps = dispatch => {
     return {
-        onSubmitComment: (id, comment) => dispatch(actions.createComment(id, comment)),
+        onSubmitCommentDashboard: (id, comment) => dispatch(actions.createCommentDashboard(id, comment)),
+        onSubmitCommentPage: (id, comment) => dispatch(actions.createCommentPage(id, comment)),
         onDeletePost: (id) => dispatch(actions.deletePost(id)),
         onGetPosts: (user) => dispatch(actions.getPosts(user)),
     }

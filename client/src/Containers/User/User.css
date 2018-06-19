@@ -1,6 +1,9 @@
 .user {
     width: 1024px;
     margin: 0 auto;
+}
+
+.user-username {
     text-align: center;
 }
 
@@ -8,4 +11,18 @@
     width: 100%;
     display: grid;
     grid-template-columns: 15% 70% 15%;
+}
+
+.user-follow {
+    border: 1px solid black;
+    cursor: pointer;
+    padding: 2%;
+    margin: 2%;
+}
+
+.user-unfollow {
+    border: 1px solid black;
+    cursor: pointer;
+    padding: 2%;
+    margin: 2%;
 }

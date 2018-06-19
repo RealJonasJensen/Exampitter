@@ -21,3 +21,18 @@
     padding-top: 2%;
     font-size: .8em;
 }
+
+.post-comments-delete {
+
+}
+
+.post-comments-delete p {
+    font-size: .8em;
+    cursor: pointer;
+    width: 90%;
+}
+
+.post-comments-date p {
+    font-size: .6em;
+    text-align: right;
+}

@@ -32,7 +32,7 @@ if (localStorage.jwt) {
   if (decoded.exp < currentTime) {
     store.dispatch(logoutUser());
     // redirect to login
-    window.location.href = "/login"
+    window.location.href = "/"
   }
 }
 
