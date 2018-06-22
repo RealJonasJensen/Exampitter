@@ -5,6 +5,8 @@ import { withRouter, NavLink } from "react-router-dom"
 import { connect } from "react-redux";
 
 import PostComment from "../PostComment/PostComment";
+import Modal from "../../UI/Modal/Modal";
+import Backdrop from "../../UI/Backdrop/Backdrop";
 import Aux from "../../../Hoc/Aux/Aux";
 
 import * as actions from "../../../store/actions/index";
@@ -16,6 +18,7 @@ class Post extends Component {
     state = {
         showComments: false,
         comment: "",
+        showModal: false,
     }
 
     // componentDidMount() {
@@ -23,6 +26,12 @@ class Post extends Component {
     //     console.log(this.props.history.location)
 
     // }
+
+    showModalHandler = () => {
+        this.setState(prevState => {
+            return { showModal: !prevState.showModal }
+        })
+    }
 
     changePostHandler = (event) => {
         this.setState({ [event.target.name]: event.target.value })
@@ -56,7 +65,7 @@ class Post extends Component {
         let comments = "loading..."
         if (this.props.comments) {
             comments = this.props.comments.map(comment => {
-                console.log(comment)
+                //console.log(comment)
                 return < PostComment key={comment._id} commentId={comment._id} postId={this.props.id} text={comment.text}
                     avatar={comment.avatar} userId={comment.user._id} username={comment.username} />
             })
@@ -69,11 +78,13 @@ class Post extends Component {
 
         let deletePost = null;
         if (this.props.userId === this.props.user.id) {
-            deletePost = <div><p className="post-delete" onClick={() => this.props.onDeletePost(this.props.id)} >Delete Post</p></div>;
+            deletePost = <div><p className="post-delete" onClick={this.showModalHandler} >Delete Post</p></div>;
         }
 
         return (
             <Aux>
+                <Backdrop clicked={this.showModalHandler} show={this.state.showModal} />
+                <Modal cancelClick={this.showModalHandler} confirmClick={() => this.props.onDeletePost(this.props.id)} show={this.state.showModal} >Are you sure you want to delete this post?</Modal>
                 <div className="post" >
                     <div className="post-avatar"><img src={process.env.PUBLIC_URL + "/Images/" + this.props.avatar} alt="" /></div>
                     <div>
