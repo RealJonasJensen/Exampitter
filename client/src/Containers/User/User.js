@@ -42,13 +42,11 @@ class User extends Component {
     }
 
     onClickFollow = () => {
-        this.props.onFollowUser(this.props.match.params.id)
-        this.render()
+        this.props.onFollowUser(this.props.match.params.id, this.props.user)
     }
 
     onClickUnfollow = () => {
-        this.props.onUnfollowUser(this.props.match.params.id)
-        this.render()
+        this.props.onUnfollowUser(this.props.match.params.id, this.props.user)
     }
 
     render() {
@@ -127,8 +125,8 @@ const mapDispatchToProps = dispatch => {
     return {
         onGetUserPage: (id) => dispatch(actions.getUserPage(id)),
         onGetUserPagePosts: (id) => dispatch(actions.getUserPagePosts(id)),
-        onFollowUser: (id) => dispatch(actions.followUser(id)),
-        onUnfollowUser: (id) => dispatch(actions.unfollowUser(id)),
+        onFollowUser: (id, currentUser) => dispatch(actions.followUser(id, currentUser)),
+        onUnfollowUser: (id, currentUser) => dispatch(actions.unfollowUser(id, currentUser)),
         onClearPosts: () => dispatch(actions.clearPosts()),
         onGetCurrentUser: () => dispatch(actions.getCurrentUser()),
     }

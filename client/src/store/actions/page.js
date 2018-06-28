@@ -87,17 +87,17 @@ export const createCommentFailure = error => {
 
 // Follow a user
 
-export const followUser = (userId) => dispatch => {
+export const followUser = (userId, currentUser) => dispatch => {
     axios.post("/api/users/" + userId + "/follow")
-        .then(response => dispatch(followUserSuccess(response.data)))
+        .then(response => dispatch(followUserSuccess(response.data, currentUser)))
         .catch(error => dispatch(followUserFailure(error.response)))
 
 }
 
-export const followUserSuccess = data => {
+export const followUserSuccess = (data, currentUser) => {
     return {
         type: actions.FOLLOW_USER_SUCCESS,
-        payload: data
+        payload: { data, currentUser }
     }
 }
 
@@ -110,17 +110,17 @@ export const followUserFailure = error => {
 
 // Unfollow a user
 
-export const unfollowUser = (userId) => dispatch => {
+export const unfollowUser = (userId, currentUser) => dispatch => {
     axios.post("/api/users/" + userId + "/unfollow")
-        .then(response => dispatch(unfollowUserSuccess(response.data)))
+        .then(response => dispatch(unfollowUserSuccess(response.data, currentUser)))
         .catch(error => dispatch(unfollowUserFailure(error.response)))
 
 }
 
-export const unfollowUserSuccess = data => {
+export const unfollowUserSuccess = (data, currentUser) => {
     return {
         type: actions.UNFOLLOW_USER_SUCCESS,
-        payload: data
+        payload: { data, currentUser }
     }
 }
 

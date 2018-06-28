@@ -155,9 +155,10 @@ export default (state = initialState, action) => {
 
             const newFollowedFollowers = state.user.followers;
             const follower = {
-                _id: action.payload._id,
+                _id: action.payload.currentUser.id,
                 user: {
-                    ...action.payload
+                    ...action.payload.currentUser,
+                    _id: action.payload.currentUser.id
                 }
             }
             newFollowedFollowers.push(follower);
@@ -167,6 +168,41 @@ export default (state = initialState, action) => {
                 user: {
                     ...state.user,
                     followers: newFollowedFollowers
+                }
+            }
+
+        // Unfollow a user
+
+        case actions.UNFOLLOW_USER_SUCCESS:
+
+            console.log(action.payload)
+
+            // Copy State Followers
+
+            const newUnfollowedFollowers = state.user.followers;
+            console.log(newUnfollowedFollowers);
+
+            // Find The Follower
+
+            const removeFollower = newUnfollowedFollowers.find(follower => follower.user._id === action.payload.currentUser.id);
+            console.log(removeFollower)
+
+            // Find Follower Index
+
+            const removeIndex = newUnfollowedFollowers.indexOf(removeFollower);
+            console.log(removeIndex);
+
+            // Splice Out of Followers
+
+            newUnfollowedFollowers.splice(removeIndex, 1)
+
+            console.log("HER");
+
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    followers: newUnfollowedFollowers
                 }
             }
 
