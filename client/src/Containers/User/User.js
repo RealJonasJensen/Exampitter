@@ -9,6 +9,10 @@ import "./User.css";
 
 class User extends Component {
 
+    state = {
+        status: "null"
+    }
+
     componentDidMount() {
         this.props.onGetUserPage(this.props.match.params.id);
         this.props.onGetUserPagePosts(this.props.match.params.id);
@@ -28,7 +32,6 @@ class User extends Component {
         // console.log("UPDATE")
         // console.log(prevProps)
         // console.log(this.props.match)
-
         // console.log("PrevUser: " + prevProps.match.url + " NEW USER: " + this.props.match.url)
 
         if (prevProps.match.url !== this.props.match.url) {
@@ -36,7 +39,16 @@ class User extends Component {
             this.props.onGetUserPage(this.props.match.params.id)
             this.props.onGetUserPagePosts(this.props.match.params.id)
         }
+    }
 
+    onClickFollow = () => {
+        this.props.onFollowUser(this.props.match.params.id)
+        this.render()
+    }
+
+    onClickUnfollow = () => {
+        this.props.onUnfollowUser(this.props.match.params.id)
+        this.render()
     }
 
     render() {
@@ -66,13 +78,13 @@ class User extends Component {
             const isUserFollowing = this.props.page.user.followers.filter(item => item.user._id === this.props.user.id)
             console.log(isUserFollowing)
             if (isUserFollowing.length >= 1) {
-                button = (<div className="user-follow" onClick={() => this.props.onUnfollowUser(this.props.match.params.id)}>
-                    <p>Unfollow</p>
+                button = (<div className="user-follow" onClick={this.onClickUnfollow}>
+                    <p className="user-p-unfollow">Unfollow</p>
                 </div>)
             }
             if (isUserFollowing.length < 1) {
-                button = (<div className="user-follow" onClick={() => this.props.onFollowUser(this.props.match.params.id)} >
-                    <p> Follow </p>
+                button = (<div className="user-follow" onClick={this.onClickFollow} >
+                    <p className="user-p-follow">Follow</p>
                 </div>)
             }
             if (this.props.user.id === this.props.match.params.id) {
@@ -84,18 +96,26 @@ class User extends Component {
 
         return (
             <div className="user">
-                {button}
-
-                <h2 className="user-username">{this.props.page.user.username} </h2>
-                <div className="user-content">
-                    <div>Following
-                        {following}
+                <div className="user-info">
+                    <div>
+                        <h2 className="user-username">{this.props.page.user.username} </h2>
+                        <h4 className="user-quote">This right here is a quote </h4>
                     </div>
+                    {button}
+
+                </div>
+                <div className="user-content">
                     <div>
                         {posts}
                     </div>
-                    <div>Followers
+                    <div>
+                        <div>Following
+                        {following}
+                        </div>
+                        <div>Followers
                         {followers}
+                        </div>
+
                     </div>
                 </div>
             </div>

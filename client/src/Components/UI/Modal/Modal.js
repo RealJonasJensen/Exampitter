@@ -1,18 +1,28 @@
-import React from "react";
+import React, { Component } from "react";
 
 import "./Modal.css";
 
-const Modal = props => {
+class Modal extends Component {
 
-    return (
-        props.show ? <div className="modal">
-            <p className="modal-text">{props.children}</p>
-            <div className="modal-btns">
-                <div onClick={props.cancelClick} className="modal-btn modal-cancel"><p>Cancel</p></div>
-                <div onClick={props.confirmClick} className="modal-btn modal-confirm"><p>Confirm</p></div>
-            </div>
-        </div> : null
-    )
+    confirmClickHandler = event => {
+        this.props.confirmClick()
+        this.props.cancelClick();
+    }
+
+
+    render() {
+
+        return (
+            this.props.show ? <div className="modal">
+                <p className="modal-text">{this.props.children}</p>
+                <div className="modal-btns">
+                    <div onClick={this.props.cancelClick} className="modal-btn modal-cancel"><p>Cancel</p></div>
+                    <div onClick={this.confirmClickHandler} className="modal-btn modal-confirm"><p>Confirm</p></div>
+                </div>
+            </div> : null
+        )
+    }
+
 }
 
-export default Modal
+export default Modal;

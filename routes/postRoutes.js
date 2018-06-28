@@ -42,7 +42,7 @@ router.get("/user/:id", (req, res) => {
         .catch(err => res.status(404).json({ noPosts: "No posts found for this user" }))
 })
 
-// @route   GET api/posts
+// @route   POST api/posts
 // @desc    Create post
 // @access  Private
 router.post("/", passport.authenticate("jwt", { session: false }),
@@ -55,7 +55,11 @@ router.post("/", passport.authenticate("jwt", { session: false }),
 
         const newPost = new Post({
             text: req.body.text,
-            user: req.user.id,
+            user: {
+                _id: req.user.id,
+                username: req.user.username,
+                avatar: req.user.avatar,
+            },
             avatar: req.user.avatar,
             username: req.user.username
         })
@@ -166,7 +170,6 @@ router.delete("/:postId/comment/:commentId", passport.authenticate("jwt", { sess
             if (comment.length == 0) {
                 return res.status(404).json({ comment: "Comment does not exist" });
             }
-
 
             const commentIndex = post.comments.map(comment => comment._id.toString()).indexOf(req.params.commentId);
             // Remove comment

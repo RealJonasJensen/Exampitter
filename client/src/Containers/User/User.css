@@ -3,21 +3,20 @@
     margin: 0 auto;
 }
 
-.user-username {
-    text-align: center;
-}
-
 .user-content {
     width: 100%;
     display: grid;
-    grid-template-columns: 15% 70% 15%;
+    grid-template-columns: 80% 20%;
 }
 
-.user-follow {
-    border: 1px solid black;
+.user-follow p {
     cursor: pointer;
-    padding: 2%;
+    border: 1px solid black;
+    display: inline-block;
     margin: 2%;
+    font-size: 1.3em;
+    padding: 2%;
+
 }
 
 .user-unfollow {
@@ -25,4 +24,9 @@
     cursor: pointer;
     padding: 2%;
     margin: 2%;
+}
+
+.user-info {
+    display: grid;
+    grid-template-columns: 60% 40%;
 }

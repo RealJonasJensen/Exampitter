@@ -10,6 +10,9 @@ const initialState = {
 
 export default (state = initialState, action) => {
     switch (action.type) {
+
+        // Load Page
+
         case actions.GET_USER_PAGE_START:
             return {
                 ...state,
@@ -46,6 +49,9 @@ export default (state = initialState, action) => {
                 loadingPosts: false,
                 error: action.payload
             }
+
+        // Create Comment Page
+
         case actions.PAGE_CREATE_COMMENT_SUCCESS:
             const newPosts = state.posts.map(post => {
                 if (post._id.toString() === action.payload._id.toString()) {
@@ -62,6 +68,8 @@ export default (state = initialState, action) => {
                 errorPosts: null,
                 posts: newPosts
             }
+
+        // Like / Unlike Post Page
 
         case actions.PAGE_LIKE_POST_SUCCESS:
             // console.log(action.payload)
@@ -81,8 +89,6 @@ export default (state = initialState, action) => {
             };
 
         case actions.PAGE_UNLIKE_POST_SUCCESS:
-            // console.log(action.payload)
-
             const newUnLikePosts = state.posts.map(post => {
                 if (post._id.toString() === action.payload._id.toString()) {
                     const newLikes = [...post.likes];
@@ -100,6 +106,70 @@ export default (state = initialState, action) => {
                 ...state,
                 posts: newUnLikePosts
             }
+
+        // Page Delete Comment
+
+        case actions.PAGE_DELETE_COMMENT_SUCCESS:
+
+            console.log(action.payload)
+
+            // Get Post Id
+            const postId = action.payload.data._id;
+            // Get comment Id
+            const commentId = action.payload.commentId;
+
+            // Map Posts to Find Post with Commment
+            const newDeletedCommentPosts = state.posts.map(post => {
+                if (postId.toString() === post._id.toString()) {
+                    console.log("This is the one!")
+                    // Find Comment
+                    const removeComment = post.comments.find(comment => comment._id === commentId);
+                    // Find comment index
+                    const removeCommentIndex = post.comments.indexOf(removeComment);
+                    // Splice the Comment out
+                    const newComments = [...post.comments]
+                    newComments.splice(removeCommentIndex, 1);
+
+                    return {
+                        ...post,
+                        comments: newComments
+                    }
+                }
+                return {
+                    ...post
+                }
+            })
+            //console.log(newDeletedCommentPosts)
+
+
+            return {
+                ...state,
+                posts: newDeletedCommentPosts
+            }
+
+        // Follow a User
+
+        case actions.FOLLOW_USER_SUCCESS:
+
+            console.log(action.payload)
+
+            const newFollowedFollowers = state.user.followers;
+            const follower = {
+                _id: action.payload._id,
+                user: {
+                    ...action.payload
+                }
+            }
+            newFollowedFollowers.push(follower);
+
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    followers: newFollowedFollowers
+                }
+            }
+
 
         default:
             return state;

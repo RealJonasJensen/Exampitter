@@ -2,6 +2,10 @@ import React, { Component } from "react";
 
 import { connect } from "react-redux";
 
+import { withRouter } from "react-router-dom";
+
+import * as actions from "../../../store/actions/index";
+
 import Backdrop from "../../UI/Backdrop/Backdrop";
 import Modal from "../../UI/Modal/Modal";
 
@@ -22,6 +26,12 @@ class PostComment extends Component {
         })
     }
 
+    confirmClickHandler = event => {
+        console.log("Delete Comment")
+        //console.log(this.props.history.location.pathname)
+        this.props.onDeleteComment(this.props.postId, this.props.commentId, this.props.history.location.pathname)
+    }
+
     render() {
 
         // Comment id and post id
@@ -31,6 +41,7 @@ class PostComment extends Component {
         // console.log(this.props.user)
 
         let deleteComment = null;
+        console.log(this.props)
         if (this.props.userId === this.props.user.id) {
             deleteComment = <div className="post-comments-delete" onClick={this.showModalHandler}><p>Delete Comment</p> </div>
         }
@@ -39,7 +50,7 @@ class PostComment extends Component {
         return (
             <div className="post-comments-comment">
                 <Backdrop show={this.state.showModal} clicked={this.showModalHandler} />
-                <Modal cancelClick={this.showModalHandler} show={this.state.showModal}>Are you sure you want to delete this comment?</Modal>
+                <Modal confirmClick={this.confirmClickHandler} cancelClick={this.showModalHandler} show={this.state.showModal}>Are you sure you want to delete this comment?</Modal>
                 <div className="post-comments-img">
                     <img src={process.env.PUBLIC_URL + "/Images/" + this.props.avatar} alt={this.props.username} />
                 </div>
@@ -58,10 +69,16 @@ class PostComment extends Component {
     }
 }
 
+const mapDispatchToProps = dispatch => {
+    return {
+        onDeleteComment: (postId, commentId, path) => dispatch(actions.deleteComment(postId, commentId, path))
+    }
+}
+
 const mapStateToProps = state => {
     return {
         user: state.user
     }
 }
 
-export default connect(mapStateToProps)(PostComment);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostComment));

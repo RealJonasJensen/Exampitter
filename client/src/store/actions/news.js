@@ -231,24 +231,61 @@ export const createCommentFailure = error => {
     }
 }
 
-// Delete Comment
+// Delete Post
 
 export const deletePost = id => dispatch => {
     axios.delete("/api/posts/" + id)
-        .then(response => dispatch(deletePostDashboardSuccess(response.data)))
+        .then(response => dispatch(deletePostDashboardSuccess(response.data, id)))
         .catch(err => dispatch(deletePostDashboardFailure(err.response)))
 }
 
-export const deletePostDashboardSuccess = data => {
+export const deletePostDashboardSuccess = (data, id) => {
     return {
         type: actions.DASHBOARD_DELETE_POST_SUCCESS,
-        payload: data
+        payload: { data, id }
     }
 }
 
 export const deletePostDashboardFailure = error => {
     return {
         type: actions.DASHBOARD_DELETE_POST_FAILURE,
+        payload: error
+    }
+}
+
+// Delete Comment
+
+export const deleteComment = (postId, commentId, path) => dispatch => {
+    console.log(postId, commentId)
+    axios.delete(`/api/posts/${postId}/comment/${commentId}`)
+        .then(response => {
+            console.log(response.data)
+            dispatch(deleteCommentSuccess(response.data, commentId, path))
+        })
+        .catch(error => {
+            console.log(error)
+            dispatch(deleteCommentFailure(error))
+        })
+}
+
+export const deleteCommentSuccess = (data, commentId, path) => {
+    console.log(path)
+    if (path === "/") {
+        return {
+            type: actions.DASHBOARD_DELETE_COMMENT_SUCCESS,
+            payload: { data, commentId }
+        }
+    } else {
+        return {
+            type: actions.PAGE_DELETE_COMMENT_SUCCESS,
+            payload: { data, commentId }
+        }
+    }
+
+}
+export const deleteCommentFailure = error => {
+    return {
+        type: actions.DASHBOARD_DELETE_COMMENT_FAILURE,
         payload: error
     }
 }

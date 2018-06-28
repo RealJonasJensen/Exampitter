@@ -17,15 +17,9 @@ class Post extends Component {
 
     state = {
         showComments: false,
-        comment: "",
         showModal: false,
+        comment: "",
     }
-
-    // componentDidMount() {
-    //     console.log(this.props.history.location.pathname.split("/")[1])
-    //     console.log(this.props.history.location)
-
-    // }
 
     showModalHandler = () => {
         this.setState(prevState => {
@@ -81,14 +75,16 @@ class Post extends Component {
             deletePost = <div><p className="post-delete" onClick={this.showModalHandler} >Delete Post</p></div>;
         }
 
+        console.log(this.props)
         return (
+
             <Aux>
                 <Backdrop clicked={this.showModalHandler} show={this.state.showModal} />
                 <Modal cancelClick={this.showModalHandler} confirmClick={() => this.props.onDeletePost(this.props.id)} show={this.state.showModal} >Are you sure you want to delete this post?</Modal>
                 <div className="post" >
                     <div className="post-avatar"><img src={process.env.PUBLIC_URL + "/Images/" + this.props.avatar} alt="" /></div>
                     <div>
-                        <NavLink to={"/user/" + this.props.user.id}><p className="post-username">{this.props.username}</p></NavLink>
+                        <NavLink to={"/user/" + this.props.userId}><p className="post-username">{this.props.username}</p></NavLink>
                         <p className="post-text">{this.props.text}</p>
                         <div className="post-info">
                             <div><p>{this.props.likes === 1 ? this.props.likes + " Like" : this.props.likes + " Likes"}</p></div>

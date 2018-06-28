@@ -2,7 +2,7 @@
     display: grid;
     grid-template-columns: 30% 70%;
     padding: 5%;
-    border-bottom:1px solid rgb(255, 0, 0);
+    border-bottom:1px solid rgb(134, 134, 134);
 }
 
 .dashboard-info-link {
