@@ -65,8 +65,15 @@ export default (state = initialState, action) => {
             })
             return {
                 ...state,
-                errorPosts: null,
+                error: {},
                 posts: newPosts
+            }
+
+        case actions.PAGE_CREATE_COMMENT_FAILURE:
+            console.log(action.payload)
+            return {
+                ...state,
+                error: { createComment: action.payload }
             }
 
         // Like / Unlike Post Page
@@ -110,14 +117,11 @@ export default (state = initialState, action) => {
         // Page Delete Comment
 
         case actions.PAGE_DELETE_COMMENT_SUCCESS:
-
             console.log(action.payload)
-
             // Get Post Id
             const postId = action.payload.data._id;
             // Get comment Id
             const commentId = action.payload.commentId;
-
             // Map Posts to Find Post with Commment
             const newDeletedCommentPosts = state.posts.map(post => {
                 if (postId.toString() === post._id.toString()) {
@@ -174,30 +178,14 @@ export default (state = initialState, action) => {
         // Unfollow a user
 
         case actions.UNFOLLOW_USER_SUCCESS:
-
-            console.log(action.payload)
-
             // Copy State Followers
-
             const newUnfollowedFollowers = state.user.followers;
-            console.log(newUnfollowedFollowers);
-
             // Find The Follower
-
             const removeFollower = newUnfollowedFollowers.find(follower => follower.user._id === action.payload.currentUser.id);
-            console.log(removeFollower)
-
             // Find Follower Index
-
             const removeIndex = newUnfollowedFollowers.indexOf(removeFollower);
-            console.log(removeIndex);
-
             // Splice Out of Followers
-
             newUnfollowedFollowers.splice(removeIndex, 1)
-
-            console.log("HER");
-
             return {
                 ...state,
                 user: {

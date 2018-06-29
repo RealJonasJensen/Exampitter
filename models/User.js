@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    quote: {
+        type: String,
+        default: "This right here is your personal quote!"
+    },
     email: {
         type: String,
         required: true,

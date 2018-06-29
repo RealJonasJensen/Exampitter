@@ -27,10 +27,6 @@ app.use(bodyParser.json())
 
 // Routes
 
-app.get("/", (req, res) => {
-    res.send("Hej fra Server.js")
-})
-
 app.use("/api/users", userRoutes)
 app.use("/api/posts", postRoutes)
 

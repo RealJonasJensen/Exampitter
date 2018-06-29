@@ -65,10 +65,10 @@ class Post extends Component {
             })
         };
 
-        // // Post user Id
-        // console.log(this.props.userId)
-        // // Logged in user Id
-        // console.log(this.props.user.id)
+        let error = null;
+        if (this.props.page.error.createComment) {
+            error = this.props.page.error.createComment;
+        }
 
         let deletePost = null;
         if (this.props.userId === this.props.user.id) {
@@ -101,6 +101,7 @@ class Post extends Component {
                                 <button type="submit" className="post-btn"> Comment </button>
                             </form>
                         </div>
+                        {error}
                         {this.state.showComments ? comments : null}
                     </div>
                 </div>
@@ -121,6 +122,7 @@ const mapDisaptchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         user: state.user,
+        page: state.page
     }
 }
 

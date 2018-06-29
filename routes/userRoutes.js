@@ -30,14 +30,15 @@ router.get("/", (req, res) => {
 // @desc     Get User By ID
 // @access   Public
 router.get("/user/:id", (req, res) => {
-    User.findOne({ _id: req.params.id }, { username: 1, avatar: 1, followers: 1, following: 1 })
+    User.findOne({ _id: req.params.id }, { username: 1, avatar: 1, followers: 1, following: 1, quote: 1 })
         .populate("following.user", ["avatar", "_id", "username"])
         .populate("followers.user", ["avatar", "_id", "username"])
         .then(user => {
-            return res.json(user)
+            console.log(user);
+            return res.json(user);
         })
         .catch(err => {
-            return res.status(404).json({ noUsers: "No user found" })
+            return res.status(404).json({ noUsers: "No user found" });
         })
 })
 
@@ -77,7 +78,6 @@ router.get("/top", (req, res) => {
 router.post("/register", async (req, res) => {
     // console.log(req.body)
     const { errors, isValid } = validateRegisterInput(req.body);
-
     //Check Validation
     if (!isValid) {
         return res.status(400).json(errors)
@@ -86,8 +86,8 @@ router.post("/register", async (req, res) => {
     await User.findOne({ email: req.body.email })
         .then(user => {
             if (user && user.email.toLowerCase() == req.body.email.toLowerCase()) {
-                console.log(user)
-                console.log(user.email.toLowerCase() == req.body.email.toLowerCase())
+                // console.log(user)
+                // console.log(user.email.toLowerCase() == req.body.email.toLowerCase())
                 errors.email = "There is already an user with that email";
             }
         }
@@ -137,6 +137,7 @@ router.post("/login", (req, res) => {
 
     //Check Validation
     if (!isValid) {
+        console.log(errors)
         return res.status(400).json(errors)
     }
 
@@ -148,7 +149,7 @@ router.post("/login", (req, res) => {
     User.findOne({ email })
         .then(user => {
             if (!user) {
-                errors.email = "User not found";
+                errors.loginEmail = "User not found";
                 return res.status(404).json(errors);
             }
 
@@ -170,7 +171,7 @@ router.post("/login", (req, res) => {
                             }
                         );
                     } else {
-                        errors.password = "Password is incorrect";
+                        errors.loginPassword = "Password is incorrect";
                         return res.status(400).json(errors)
                     }
                 })

@@ -68,7 +68,7 @@ export const createCommentPage = (postId, comment) => dispatch => {
     const data = { text: comment };
     axios.post("/api/posts/" + postId + "/comment", data)
         .then(response => dispatch(createCommentSuccess(response.data)))
-        .catch(err => dispatch(createCommentFailure(err.data)))
+        .catch(err => dispatch(createCommentFailure(err.response.data.text)))
 }
 
 export const createCommentSuccess = data => {

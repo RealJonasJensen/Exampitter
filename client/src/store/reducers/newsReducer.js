@@ -85,11 +85,22 @@ export default (state = initialState, action) => {
                 errorNew: null,
                 errorPosts: null,
             }
+
+        // Create Post
+
         case actions.CREATE_POST_SUCCESS:
             console.log(action.payload)
             return {
                 ...state,
-                posts: [action.payload, ...state.posts]
+                posts: [action.payload, ...state.posts],
+                error: {}
+            }
+
+        case actions.CREATE_POST_FAILURE:
+            console.log(action.payload)
+            return {
+                ...state,
+                error: action.payload
             }
 
         // Create Comment

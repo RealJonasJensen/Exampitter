@@ -30,7 +30,9 @@ class Login extends Component {
             <div className="login">
                 <form>
                     <input type="text" name="email" placeholder="Email" onChange={this.onChangeInputHandler} value={this.state.email} />
+                    {this.props.auth.error.loginEmail}
                     <input type="password" name="password" placeholder="Password" onChange={this.onChangeInputHandler} value={this.state.password} />
+                    {this.props.auth.error.loginPassword}
                     <button onClick={this.onSubmitHandler}>Login</button>
                 </form>
             </div>
@@ -45,4 +47,10 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Login);
+const mapStateToProps = state => {
+    return {
+        auth: state.auth
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

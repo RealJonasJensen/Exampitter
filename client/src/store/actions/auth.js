@@ -21,13 +21,18 @@ export const loginUser = (userdata, history) => (
                 history.push("/")
             })
             .catch(err => {
-                dispatch({
-                    type: actions.GET_ERRORS,
-                    payload: err
-                })
+                dispatch(loginUserFailure(err.response.data))
+                console.log(err.response.data)
             })
     }
 )
+
+export const loginUserFailure = (error) => {
+    return {
+        type: actions.LOGIN_USER_FAILURE,
+        payload: error
+    }
+}
 
 export const setCurrentUser = (decoded) => (
     {
@@ -37,7 +42,7 @@ export const setCurrentUser = (decoded) => (
 )
 
 export const logoutUser = () => dispatch => {
-    console.log("hej")
+    // console.log("hej")
     localStorage.removeItem("jwt")
     setAuthToken(false)
     dispatch(setCurrentUser({}))
@@ -46,17 +51,32 @@ export const logoutUser = () => dispatch => {
     })
 }
 
+// Register User
+
 export const registerUser = (userdata, history) => dispatch => {
     console.log(userdata)
     axios.post("api/users/register", userdata)
         .then(response => {
-            console.log(response.data)
-            history.push("/login")
+            // console.log(response.data)
+            dispatch(registerUserSuccess(response.data))
+            dispatch(loginUser(userdata, history))
         })
         .catch(err => {
-            dispatch({
-                type: actions.GET_ERRORS,
-                payload: err
-            })
+            // console.log(err)
+            dispatch(registerUserFailure(err.response.data))
         })
+}
+
+export const registerUserSuccess = (data) => {
+    return {
+        type: actions.REGISTER_USER_SUCCESS,
+        payload: data
+    }
+}
+
+export const registerUserFailure = (error) => {
+    return {
+        type: actions.REGISTER_USER_FAILURE,
+        payload: error
+    }
 }

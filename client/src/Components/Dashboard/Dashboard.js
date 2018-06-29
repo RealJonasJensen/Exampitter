@@ -83,6 +83,7 @@ class Dashboard extends Component {
                             <input type="text" name="message" value={this.state.message} onChange={this.changeInputHandler} placeholder="What do you want to share?" />
                             <button type="submit">Post </button>
                         </form >
+                        {this.props.news.error.text}
                     </div>
                     {posts}
                 </div>

@@ -34,9 +34,13 @@ class Register extends Component {
                 <h2>Create a profile!</h2>
                 <form>
                     <input type="text" name="email" onChange={this.onChangeInputHandler} value={this.state.email} placeholder="Email" />
+                    {this.props.auth.error.email}
                     <input type="text" name="username" onChange={this.onChangeInputHandler} value={this.state.username} placeholder="Username" />
+                    {this.props.auth.error.username}
                     <input type="password" name="password" onChange={this.onChangeInputHandler} value={this.state.password} placeholder="Password" />
+                    {this.props.auth.error.password}
                     <input type="password" name="password2" onChange={this.onChangeInputHandler} value={this.state.password2} placeholder="Repeat Password" />
+                    {this.props.auth.error.password2}
                     <button onClick={this.onSubmitHandler}>Register</button>
                 </form>
             </div>
@@ -50,4 +54,10 @@ const mapDispatchToProps = dispatch => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(Register);
+const mapStateToProps = state => {
+    return {
+        auth: state.auth,
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

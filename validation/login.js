@@ -9,15 +9,15 @@ module.exports = validateLoginInput = (data) => {
 
 
     if (!Validator.isEmail(data.email)) {
-        errors.email = "Email is invalid";
+        errors.loginEmail = "Email is invalid";
     }
 
     if (Validator.isEmpty(data.email)) {
-        errors.email = "Email field is required";
+        errors.loginEmail = "Email field is required";
     }
 
     if (Validator.isEmpty(data.password)) {
-        errors.password = "Password is required";
+        errors.loginPassword = "Password is required";
     }
 
     return {

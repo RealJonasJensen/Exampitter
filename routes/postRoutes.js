@@ -135,7 +135,7 @@ router.post("/unlike/:id", passport.authenticate("jwt", { session: false }), (re
 // @access      Private
 
 router.post("/:id/comment", passport.authenticate("jwt", { session: false }), (req, res) => {
-    const { errors, isValid } = validatePostInput(req.body);
+    const { errors, isValid } = validateCommentInput(req.body);
     // Check Validation
     if (!isValid) {
         return res.status(400).json(errors);

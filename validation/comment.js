@@ -10,8 +10,8 @@ module.exports = validateCommentInput = (data) => {
         errors.text = "Comment field is required";
     }
 
-    if (!Validator.isLength(data.text, { min: 10, max: 300 })) {
-        errors.text = "Comment must be between 10 and 300 characters";
+    if (!Validator.isLength(data.text, { min: 1, max: 150 })) {
+        errors.text = "Comment must be between 1 and 150 characters";
     }
 
     return {

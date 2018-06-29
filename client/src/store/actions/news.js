@@ -108,7 +108,7 @@ export const getPostsSuccess = data => {
 export const createPost = data => dispatch => {
     axios.post("/api/posts/", data)
         .then(response => dispatch(createPostSuccess(response.data)))
-        .catch(error => dispatch(createPostError(error.response)))
+        .catch(error => dispatch(createPostError(error.response.data)))
 }
 
 export const createPostSuccess = data => {

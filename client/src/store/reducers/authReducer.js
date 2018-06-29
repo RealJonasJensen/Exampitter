@@ -3,7 +3,8 @@ import isEmpty from "../../utility/isEmpty";
 
 const initialState = {
     isAuthenticated: false,
-    user: {}
+    user: {},
+    error: {}
 }
 
 export default (state = initialState, action) => {
@@ -12,7 +13,23 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 isAuthenticated: !isEmpty(action.payload),
-                user: action.payload
+                user: action.payload,
+                error: {}
+            }
+        case actions.REGISTER_USER_SUCCESS:
+            return {
+                ...state,
+                error: {}
+            }
+        case actions.REGISTER_USER_FAILURE:
+            return {
+                ...state,
+                error: action.payload
+            }
+        case actions.LOGIN_USER_FAILURE:
+            return {
+                ...state,
+                error: action.payload
             }
         default:
             return state;

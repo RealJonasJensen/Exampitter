@@ -97,7 +97,7 @@ class User extends Component {
                 <div className="user-info">
                     <div>
                         <h2 className="user-username">{this.props.page.user.username} </h2>
-                        <h4 className="user-quote">This right here is a quote </h4>
+                        <h4 className="user-quote">{this.props.page.user.quote} </h4>
                     </div>
                     {button}
 
