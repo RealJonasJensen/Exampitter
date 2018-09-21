@@ -1,38 +1,54 @@
 .post-comments-comment{
     display: grid;
-    grid-template-columns: 10% 90%;
+    grid-column-gap: 20px;
+    grid-template-columns: 8% 92%;
+    border-bottom: 1px solid grey;
     padding: 3%;
-    grid-gap: 10px;
-    border-bottom: 1px solid black;
     width: 95%;
 }
 
-.post-comments-username {
-    font-size: .8em;
-    font-weight: bold;
-}
 
 .post-comments-img img {
-    width: 100%;
-}
-
-.post-comments-text {
-    grid-column: 1 / 5;
-    padding-top: 2%;
-    font-size: .8em;
-}
-
-.post-comments-delete {
-
-}
-
-.post-comments-delete p {
-    font-size: .8em;
-    cursor: pointer;
-    width: 90%;
+    height: 100%;
+    width: auto;
 }
 
 .post-comments-date p {
     font-size: .6em;
     text-align: right;
+}
+
+.post-comments-username-date {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-comments-img {
+    height: 35px;
+    width: 35px;
+}
+
+.post-comments-username {
+    font-size: .9em;
+    font-weight: bold;
+    display: block;
+}
+
+.post-comments-date {
+    font-size: .8em;
+}
+
+.post-comments-text {
+    font-size: .7em;
+}
+
+.post-comment-button {
+    display: inline-block;
+    padding: 3px 3px 0 2px;
+    margin-top: 10px;
+    background-color: rgb(157, 215, 250);
+    border-radius: 2px;
+    border: 1px solid blacK;
+    cursor: pointer;
+    font-size: .75em;
 }

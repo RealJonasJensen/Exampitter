@@ -108,7 +108,10 @@ export const getPostsSuccess = data => {
 export const createPost = data => dispatch => {
     axios.post("/api/posts/", data)
         .then(response => dispatch(createPostSuccess(response.data)))
-        .catch(error => dispatch(createPostError(error.response.data)))
+        .catch(error => {
+            dispatch(createPostError(error.response.data))
+            setTimeout(() => { dispatch(clearError()) }, 5000)
+        })
 }
 
 export const createPostSuccess = data => {
@@ -213,8 +216,13 @@ export const unLikePostPageSuccess = data => {
 export const createCommentDashboard = (postId, comment) => dispatch => {
     const data = { text: comment };
     axios.post("/api/posts/" + postId + "/comment", data)
-        .then(response => dispatch(createCommentSuccess(response.data)))
-        .catch(err => dispatch(createCommentFailure(err.data)))
+        .then(response => {
+            console.log(response.data)
+            dispatch(createCommentSuccess(response.data))
+        })
+        .catch(err => {
+            dispatch(createCommentFailure(err.data))
+        })
 }
 
 export const createCommentSuccess = data => {
@@ -297,3 +305,13 @@ export const clearPosts = () => {
         type: actions.CLEAR_USER,
     }
 }
+
+// Clear Error
+
+export const clearError = () => {
+    return {
+        type: actions.CLEAR_ERROR
+    }
+}
+
+

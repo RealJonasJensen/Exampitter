@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const passport = require("passport");
 
-
 // DB
 const keys = require("./config/keys");
 mongoose

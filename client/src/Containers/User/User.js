@@ -22,20 +22,8 @@ class User extends Component {
         }
     }
 
-    // componentWillReceiveProps() {
-
-    //     this.props.onGetUserPage(this.props.match.params.id)
-    //     this.props.onGetUserPagePosts(this.props.match.params.id)
-    // }
-
     componentDidUpdate(prevProps) {
-        // console.log("UPDATE")
-        // console.log(prevProps)
-        // console.log(this.props.match)
-        // console.log("PrevUser: " + prevProps.match.url + " NEW USER: " + this.props.match.url)
-
         if (prevProps.match.url !== this.props.match.url) {
-            // console.log("NEW USER")
             this.props.onGetUserPage(this.props.match.params.id)
             this.props.onGetUserPagePosts(this.props.match.params.id)
         }
@@ -60,7 +48,7 @@ class User extends Component {
         if (!this.props.news.loadingPosts && this.props.page.posts.length !== 0) {
             posts = <Posts posts={this.props.page.posts} />
         } else {
-            posts = <p>This user has no posts yet!</p>
+            posts = <p className="user-nopost" >This user has no posts yet!</p>
         }
 
         let followers = "Loading Followers...";
@@ -89,31 +77,56 @@ class User extends Component {
                 button = null;
             }
         }
-        console.log(this.props.page.user.followers)
+
+        const followersCount = this.props.page.user.followers ? this.props.page.user.followers.length : 0;
+        const followingCount = this.props.page.user.following ? this.props.page.user.following.length : 0;
+        const postCount = this.props.page.posts ? this.props.page.posts.length : 0;
+
+        console.log(this.props.page.posts)
 
 
         return (
             <div className="user">
                 <div className="user-info">
                     <div>
+                        <div className="user-info-img">
+                            <img src={process.env.PUBLIC_URL + "/Images/" + this.props.page.user.avatar} alt={this.props.username} />
+                        </div>
                         <h2 className="user-username">{this.props.page.user.username} </h2>
                         <h4 className="user-quote">{this.props.page.user.quote} </h4>
+
                     </div>
-                    {button}
 
                 </div>
-                <div className="user-content">
+                <div className="user-info-data" >
                     <div>
+                        <p>Posts</p><div className="count">{postCount}</div>
+                    </div>
+                    <div>
+                        <p>Followers</p><div className="count">{followersCount}</div>
+                    </div>
+                    <div>
+                        <p>Following</p><div className="count">{followingCount}</div>
+                    </div>
+                    {button}
+                </div>
+                <div className="user-content">
+                    <div className="user-content-posts" >
                         {posts}
                     </div>
                     <div>
-                        <div>Following
-                        {following}
+                        <div>
+                            <h3 className="user-following-header" >
+                                Following
+                            </h3>
+                            {following}
                         </div>
-                        <div>Followers
-                        {followers}
+                        <div>
+                            <h3 className="user-followers-header">
+                                Followers
+                            </h3>
+                            {followers}
                         </div>
-
                     </div>
                 </div>
             </div>

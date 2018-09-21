@@ -237,6 +237,11 @@ export default (state = initialState, action) => {
                 ...state,
                 error: { dashboardDeleteCommentError: action.payload }
             }
+        case actions.CLEAR_ERROR:
+            return {
+                ...state,
+                error: {}
+            }
 
         default:
             return state;

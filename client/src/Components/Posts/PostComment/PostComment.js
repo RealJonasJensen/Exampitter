@@ -6,6 +6,8 @@ import { withRouter } from "react-router-dom";
 
 import * as actions from "../../../store/actions/index";
 
+import { FaTrash } from 'react-icons/fa';
+
 import Backdrop from "../../UI/Backdrop/Backdrop";
 import Modal from "../../UI/Modal/Modal";
 
@@ -32,6 +34,8 @@ class PostComment extends Component {
         this.props.onDeleteComment(this.props.postId, this.props.commentId, this.props.history.location.pathname)
     }
 
+
+
     render() {
 
         // Comment id and post id
@@ -40,10 +44,15 @@ class PostComment extends Component {
         // console.log(this.props)
         // console.log(this.props.user)
 
+        let date = null
+        if (this.props.date) {
+            date = this.props.date.split("T")[0].split("-").reverse().join("-");
+        }
+
         let deleteComment = null;
         console.log(this.props)
         if (this.props.userId === this.props.user.id) {
-            deleteComment = <div className="post-comments-delete" onClick={this.showModalHandler}><p>Delete Comment</p> </div>
+            deleteComment = <div className="post-comments-delete" ><p onClick={this.showModalHandler} className="post-comment-button" ><FaTrash /></p></div>
         }
 
 
@@ -55,15 +64,19 @@ class PostComment extends Component {
                     <img src={process.env.PUBLIC_URL + "/Images/" + this.props.avatar} alt={this.props.username} />
                 </div>
                 <div>
-                    <p className="post-comments-username">
-                        {this.props.username}
-                    </p>
-                    <div className="post-comments-date"><p>Date</p></div>
+                    <div className="post-comments-username-date">
+                        <p className="post-comments-username">
+                            {this.props.username}
+                        </p>
+                        <p className="post-comments-date" >
+                            {date}
+                        </p>
+                    </div>
                     <div className="post-comments-text">
                         <p> {this.props.text} </p>
                     </div>
+                    {deleteComment}
                 </div>
-                {deleteComment}
             </div >
         )
     }

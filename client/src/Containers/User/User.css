@@ -1,5 +1,5 @@
 .user {
-    width: 1024px;
+    width: 100%;
     margin: 0 auto;
 }
 
@@ -11,12 +11,15 @@
 
 .user-follow p {
     cursor: pointer;
-    border: 1px solid black;
+    border: 2px solid rgb(16, 183, 255);
+    color:rgb(16, 183, 255);
+    border-radius: 10px;
     display: inline-block;
     margin: 2%;
+    text-align: center;
     font-size: 1.3em;
-    padding: 2%;
-
+    width: 100px;
+    padding: 4% 0;
 }
 
 .user-unfollow {
@@ -27,6 +30,65 @@
 }
 
 .user-info {
-    display: grid;
-    grid-template-columns: 60% 40%;
+    height: auto;
+    padding: 25px;
+    background-image: url("/Images/profile_landing.jpg");
+    background-size: 100% 600px;
+}
+
+.user-nopost {
+    text-align: center;
+    font-size: 2em;
+    margin: 50px 0;
+}
+
+.user-info-data {
+    display: flex;
+    justify-content: space-evenly;
+    border-radius: 0 0 25px 25px;
+    background-color: rgb(255, 255, 255);
+    border-bottom: 3px solid rgb(154, 154, 154);
+    border-top: 1px solid rgb(150, 150, 150);
+    padding: 10px 0;
+}
+
+.count {
+    text-align: center;
+}
+
+.user-info-img {
+    width: 100px;
+    height: 100px;
+    display: block;
+    margin: 0 auto;
+}
+
+.user-info-img img {
+    border-radius: 25px;
+    height: 100%;
+    width: auto;
+    border: 5px solid rgb(0, 126, 205)
+}
+
+.user-info h2 {
+    text-align: center;
+    padding: 10px;
+    color: #fff;
+}
+
+.user-info h4 {
+    text-align: center;
+    color: #fff;
+    padding: 10px;
+    padding-bottom: 20px;
+
+}
+
+.user-content-posts {
+    background-color: #fff;
+    margin: 10px;
+}
+
+.user-following-header, .user-followers-header {
+    margin: 8px;
 }

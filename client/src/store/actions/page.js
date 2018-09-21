@@ -62,7 +62,7 @@ export const getUserPagePostsFailure = error => {
     }
 }
 
-// Crate a comment
+// Create a comment
 
 export const createCommentPage = (postId, comment) => dispatch => {
     const data = { text: comment };
@@ -130,6 +130,4 @@ export const unfollowUserFailure = error => {
         payload: error
     }
 }
-
-
 

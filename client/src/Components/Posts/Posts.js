@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
+
 import * as actions from "../../store/actions/index";
 
 import Post from "./Post/Post";
@@ -28,12 +29,12 @@ class Posts extends Component {
             const dateB = new Date(b.date);
             return dateB - dateA;
         });
-        // console.log(posts1)
+        console.log(posts1)
         // console.log(this.props.user)
 
         const posts = posts1.map((post, index) => {
 
-            // console.log(post)
+            console.log(post)
             // console.log(this.props.user.id)
 
             const alreadyLiked = post.likes.filter(like => like.user.toString() === this.props.user.id);
@@ -50,7 +51,7 @@ class Posts extends Component {
                 status = "Like";
             }
             return (
-                <Post key={post._id + index} status={status} clicked={handler} username={post.username}
+                <Post key={post._id + index} date={post.date} status={status} clicked={handler} username={post.username}
                     avatar={post.avatar} text={post.text} likes={post.likes.length} id={post._id} comments={post.comments} userId={post.user._id || post.user} />
             )
 

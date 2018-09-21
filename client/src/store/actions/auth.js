@@ -21,8 +21,8 @@ export const loginUser = (userdata, history) => (
                 history.push("/")
             })
             .catch(err => {
-                dispatch(loginUserFailure(err.response.data))
-                console.log(err.response.data)
+                console.log(err)
+                dispatch(loginUserFailure(err))
             })
     }
 )

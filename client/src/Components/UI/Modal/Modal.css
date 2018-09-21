@@ -3,7 +3,7 @@
     width: 300px;
     background-color: white;
     z-index: 600;
-    position: absolute;
+    position: fixed;
     border-radius: 10px;
     top: 25%;
     left: 35%;

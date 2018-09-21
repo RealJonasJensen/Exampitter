@@ -4,6 +4,8 @@ import { withRouter, NavLink } from "react-router-dom"
 
 import { connect } from "react-redux";
 
+import { FaTrash, FaHeart, FaComment } from 'react-icons/fa';
+
 import PostComment from "../PostComment/PostComment";
 import Modal from "../../UI/Modal/Modal";
 import Backdrop from "../../UI/Backdrop/Backdrop";
@@ -56,14 +58,21 @@ class Post extends Component {
 
     render() {
 
+        let date = null
+        if (this.props.date) {
+            date = this.props.date.split("T")[0].split("-").reverse().join("-");
+        }
+
         let comments = "loading..."
         if (this.props.comments) {
             comments = this.props.comments.map(comment => {
-                //console.log(comment)
-                return < PostComment key={comment._id} commentId={comment._id} postId={this.props.id} text={comment.text}
-                    avatar={comment.avatar} userId={comment.user._id} username={comment.username} />
+                console.log(comment)
+                const commentUserId = comment.user._id ? comment.user._id : comment.user;
+                return < PostComment key={comment._id} date={comment.date} commentId={comment._id} postId={this.props.id} text={comment.text}
+                    avatar={comment.avatar} userId={commentUserId} username={comment.username} />
             })
         };
+
 
         let error = null;
         if (this.props.page.error.createComment) {
@@ -72,7 +81,38 @@ class Post extends Component {
 
         let deletePost = null;
         if (this.props.userId === this.props.user.id) {
-            deletePost = <div><p className="post-delete" onClick={this.showModalHandler} >Delete Post</p></div>;
+            deletePost = <div className="post-info-button" onClick={this.showModalHandler}><p> <FaTrash /> </p></div>;
+        }
+
+        let commentSection = null;
+        if (this.state.showComments) {
+            commentSection = (<div className="post-comments">
+                <div className="post-create-comment">
+                    <form onSubmit={this.submitComment} >
+                        <input type="text" onChange={this.changePostHandler} className="post-input" placeholder="Write Comment" name="comment" value={this.state.comment} />
+                        <button type="submit" className="post-btn">Comment</button>
+                    </form>
+                </div>
+                {error}
+                {this.state.showComments ? comments : null}
+            </div>)
+        } else {
+            commentSection = null;
+        }
+
+        let likeStatus = null;
+        if (this.props.status === "Like") {
+            likeStatus = (
+                <p className="post-likeStatus like" >
+                    <FaHeart />
+                </p>
+            )
+        } else {
+            likeStatus = (
+                <p className="post-likeStatus unlike" >
+                    <FaHeart />
+                </p>
+            )
         }
 
         console.log(this.props)
@@ -82,28 +122,32 @@ class Post extends Component {
                 <Backdrop clicked={this.showModalHandler} show={this.state.showModal} />
                 <Modal cancelClick={this.showModalHandler} confirmClick={() => this.props.onDeletePost(this.props.id)} show={this.state.showModal} >Are you sure you want to delete this post?</Modal>
                 <div className="post" >
-                    <div className="post-avatar"><img src={process.env.PUBLIC_URL + "/Images/" + this.props.avatar} alt="" /></div>
+                    <div className="post-avatar">
+                        <img src={process.env.PUBLIC_URL + "/Images/" + this.props.avatar} alt={this.props.username} /></div>
                     <div>
-                        <NavLink to={"/user/" + this.props.userId}><p className="post-username">{this.props.username}</p></NavLink>
+                        <div className="post-username-date" >
+                            <NavLink to={"/user/" + this.props.userId}>
+                                <p className="post-username">{this.props.username}</p>
+                            </NavLink>
+                            <div className="post-date"><p>{date}</p></div>
+                        </div>
+
                         <p className="post-text">{this.props.text}</p>
                         <div className="post-info">
-                            <div><p>{this.props.likes === 1 ? this.props.likes + " Like" : this.props.likes + " Likes"}</p></div>
-                            <div><p className="post-like" onClick={() => this.onLikeClick(this.props.id)} >{this.props.status}</p></div>
-                            <div><p className="post-comment-btn" onClick={this.onToggleComments} >Show Comments</p></div>
-                            {deletePost}
+                            <div className="post-info-like" >
+                                <div className="post-info-button" onClick={() => this.onLikeClick(this.props.id)}>
+                                    <p className="post-info-num-likes" >{this.props.likes}</p>
+                                    {likeStatus}
+                                </div>
+                                <div className="post-info-button" onClick={this.onToggleComments} >
+                                    <p > <FaComment /></p>
+                                </div>
+                                {deletePost}
+                            </div>
                         </div>
 
                     </div>
-                    <div className="post-comments">
-                        <div className="post-create-comment">
-                            <form onSubmit={this.submitComment} >
-                                <input type="text" onChange={this.changePostHandler} className="post-input" placeholder="Write Comment" name="comment" value={this.state.comment} />
-                                <button type="submit" className="post-btn"> Comment </button>
-                            </form>
-                        </div>
-                        {error}
-                        {this.state.showComments ? comments : null}
-                    </div>
+                    {commentSection}
                 </div>
             </Aux >
         )

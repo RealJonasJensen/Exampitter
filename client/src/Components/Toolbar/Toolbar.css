@@ -1,7 +1,10 @@
 .toolbar {
     width: 100%;
-    height: 70px;
-    background-color: rgb(25, 86, 36);
+    height: 80px;
+    margin-top: 1px;
+    border-bottom: 1px solid rgb(0, 0, 0);
+    border-top: 1px solid rgb(0, 0, 0);
+    background-color: rgb(50, 176, 255);
 }
 
 .toolbar-items {
@@ -19,9 +22,19 @@
     color: #fff;
     text-decoration: none;
     padding-right: 10%;
-
+    height: 100%;
 }
 
 .toolbar-links {
-    padding-top: 2.5%;
+    display: flex;
+    list-style-type: none;
+}
+
+.toolbar-links li {
+    padding: 30px;
+}
+
+.toolbar-links li:hover {
+    background-color: rgba(255, 255, 255, .5);
+    transition: all .2s ease-in;
 }

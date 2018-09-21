@@ -1,23 +1,20 @@
 .post {
-    background-color: rgb(243, 243, 243);
-    width: 98%;
-    margin: 2% auto;
+    width: 100%;
     padding: 3%;
     display: grid;
     grid-column-gap: 20px;
     grid-template-columns: 10% 90%;
-    border-radius: 3px;
-    box-shadow: 1.5px 2px rgba(147, 147, 147, .5)
+    border-bottom: 1px solid grey;
 }
 
-.post-info {
-    display: grid; 
-    grid-template-columns: 25% 25% 25% 25%;
-    font-size: .8em;
+
+.post:hover {
+    background-color: rgba(223, 230, 235, .5)
 }
 
 .post-username {
     font-weight: bold;
+    display:inline-block;
 }
 
 .post-comments {
@@ -39,24 +36,21 @@
 }
 
 .post-text {
-    padding: 3% 0 5%;
+    padding: 1% 0 2%;
+}
+
+.post-avatar {
+    height: 50px;
 }
 
 .post-avatar img {
-    width: 100%;
-}
-
-.post p {
-    display: block;
+    height: 100%;
+    width: auto;
 }
 
 .post a {
     text-decoration: none;
     color: black;
-}
-
-.post-like {
-    cursor: pointer;
 }
 
 .post-comment-btn {
@@ -65,4 +59,46 @@
 
 .post-delete {
     cursor: pointer;
+}
+
+.post-like {
+    padding-right: 5px;
+}
+
+.post-info-button {
+    display: flex;
+    padding: 3px 3px 0 2px;
+    margin: 0 5px;
+    background-color: rgb(157, 215, 250);
+    border-radius: 2px;
+    border: 1px solid blacK;
+    cursor: pointer;
+    font-size: .75em;
+}
+
+.post-info-num-likes {
+    font-size: .75em;
+}
+
+.post-likeStatus {
+    font-size:  1em;
+    padding-left: 5px;
+}
+
+.post-likeStatus.like {
+    color: grey;
+}
+
+.post-likeStatus.unlike {
+    color: red;
+}
+
+.post-info-like {
+    display: flex;;
+}
+
+.post-date {
+    float: right;
+    text-align: right;
+    margin-right: 10px;
 }

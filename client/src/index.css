@@ -5,10 +5,12 @@
   font-family: 'Maven Pro', sans-serif;
 }
 
-h1, h2,h3,h4 {
-  font-family: 'Krona One', sans-serif;
+h1,h2,h3,h4 {
+  font-family: 'Cabin Sketch', cursive;
 }
 
 body {
-  background-color: rgb(206, 201, 201);
+  background-color: rgb(219, 218, 218);
+  width: 100%;
+  margin: 0 auto;
 }

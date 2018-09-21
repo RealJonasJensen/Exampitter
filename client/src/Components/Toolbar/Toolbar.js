@@ -9,18 +9,15 @@ import Login from "../../Containers/Login/Login";
 class Toolbar extends Component {
 
     render() {
-
-
-        let items = (
-            <Login />
-        )
+        let items = <Login />
 
         if (this.props.auth.isAuthenticated) {
             items = (
-                <div className="toolbar-links">
-                    <NavLink to={"/user/" + this.props.auth.user.id}>{this.props.auth.user.username}</NavLink>
-                    <NavLink to="/logout">Logout</NavLink>
-                </div>
+                <ul className="toolbar-links">
+                    <NavLink to="/"><li>Home</li></NavLink>
+                    <NavLink to={"/user/" + this.props.auth.user.id}><li>{this.props.auth.user.username}</li></NavLink>
+                    <NavLink to="/logout"><li>Logout</li></NavLink>
+                </ul>
             )
         }
 

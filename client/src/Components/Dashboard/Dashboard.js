@@ -62,8 +62,12 @@ class Dashboard extends Component {
         }
 
         let posts = "Loading Posts..."
+        console.log(this.props.news)
         if (!this.props.news.loadingPosts) {
             posts = <Posts posts={this.props.news.posts} />
+        }
+        if (this.props.news.posts.length === 0) {
+            posts = <p className="dashboard-nopost">Start following people to get a feed!</p>
         }
 
         let newUsers = "Loading New Users";
@@ -74,7 +78,6 @@ class Dashboard extends Component {
         return (
             <div className="dashboard">
                 <div className="dashboard-item dash-item1">
-                    Top Users
                     {topUsers}
                 </div>
                 <div className="dashboard-item dash-item2">
@@ -83,12 +86,13 @@ class Dashboard extends Component {
                             <input type="text" name="message" value={this.state.message} onChange={this.changeInputHandler} placeholder="What do you want to share?" />
                             <button type="submit">Post </button>
                         </form >
-                        {this.props.news.error.text}
+                        <p className="dashboard-error">
+                            {this.props.news.error.text}
+                        </p>
                     </div>
                     {posts}
                 </div>
                 <div className="dashboard-item dash-item3">
-                    New Users
                     {newUsers}
                 </div>
             </div>
