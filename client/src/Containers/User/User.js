@@ -4,6 +4,7 @@ import * as actions from "../../store/actions/index";
 
 import Posts from "../../Components/Posts/Posts";
 import DashboardInfo from "../../Components/Dashboard/DashboardInfo/DashboardInfo";
+import Spinner from "../../Components/UI/Spinner/Spinner";
 
 import "./User.css";
 
@@ -39,24 +40,24 @@ class User extends Component {
 
     render() {
 
-        let following = "Loading Following...";
+        let following = <Spinner />
         if (this.props.page.user.following) {
             following = <DashboardInfo info={this.props.page.user.following} >{"Following"}</DashboardInfo>
         }
 
-        let posts = "Loading Posts..."
+        let posts = <Spinner />
         if (!this.props.news.loadingPosts && this.props.page.posts.length !== 0) {
             posts = <Posts posts={this.props.page.posts} />
         } else {
             posts = <p className="user-nopost" >This user has no posts yet!</p>
         }
 
-        let followers = "Loading Followers...";
+        let followers = <Spinner />
         if (this.props.page.user.followers) {
             followers = <DashboardInfo info={this.props.page.user.followers} >{"Follower"}</DashboardInfo>
         }
 
-        let button = "loading button";
+        let button = <Spinner />
 
         console.log(this.props.user.id, this.props.match.params.id)
 

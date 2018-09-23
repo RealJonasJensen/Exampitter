@@ -1,18 +1,106 @@
+
+.landing-border-wrapper {
+    height: auto;
+    width: 100%;
+    background-color: #fff;
+}
+
 .landing {
-    /* opacity: 1;
-    background: linear-gradient(rgba(192, 0, 0, .2), rgba(251, 255, 7,.2));
-    background-image: url("../../Images/landing.jpg");
+    background-image:  url("/Images/idea.jpg");
+    background-repeat: no-repeat;
+    height: 100%;
+    width: 100%;
     background-size: 100%;
-    background-repeat: no-repeat; */
-    height: 100vh;
-    width: 1024px;
-    margin: 0 auto;
+}
+
+.landing-inner {
+    height: 99%;
+    width: 100%;
+    background-color: rgba(0, 91, 189, 0.2)
 }
 
 .landing-info {
     display: grid;
+    width: 85%;
+    padding-top: 7%;
+    padding-bottom: 7%;
+    margin: 0 auto;
     grid-template-columns: 50% 50%;
 }
+
+.landing-border {
+    background-color: rgb(255, 132, 0);
+    height: 10px;
+    width: 100%;
+}
+
+.landing-info-text {
+    margin: 0 auto;
+}
+
+.landing-h1 {
+    padding-top: 50%;
+    color: #fff;
+}
+
+.landing-h3 {
+    padding-top: 5%;
+    color: #fff;
+}
+
+.landing-about {
+    width: 70%;
+    margin: 0 auto;
+}
+
+.landing-about-h1 {
+    text-align: center;
+    padding: 5% 0 2%;
+}
+
+.landing-about-h3 {
+    text-align: center;
+    padding-bottom: 5%;
+}
+
+.landing-about-h4 {
+    text-align: center;
+    padding-bottom: 3%;
+}
+
+.landing-about-h4 a {
+    color: #000;
+}
+
+.landing-about-info {
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 10%;
+}
+
+.landing-about-info p {
+    font-size: 2em;
+
+}
+
+
+
+
+/* .landing {
+    height: 100vh;
+    width: 1024px;
+    margin: 0 auto;
+} */
+/* opacity: 1;
+background: linear-gradient(rgba(192, 0, 0, .2), rgba(251, 255, 7,.2));
+background-image: url("../../Images/landing.jpg");
+background-size: 100%;
+background-repeat: no-repeat; */
+/* 
+.landing-info {
+    display: grid;
+    grid-template-columns: 50% 50%;
+} */
 
 /* .landing-info {
     width: 40%;
@@ -36,7 +124,7 @@
     cursor: pointer;
 } */
 
-.landing-register {
+/* .landing-register {
     height: 100vh;
     background-color: rgba(25, 86, 36, .7)
 }
@@ -62,4 +150,4 @@
 
 .landing-tour h3 {
     padding: 10%;
-}
+} */

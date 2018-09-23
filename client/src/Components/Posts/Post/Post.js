@@ -75,8 +75,9 @@ class Post extends Component {
 
 
         let error = null;
-        if (this.props.page.error.createComment) {
-            error = this.props.page.error.createComment;
+        if (this.props.news.errorComment) {
+            error = this.props.news.errorComment.text
+            //console.log(error)
         }
 
         let deletePost = null;
@@ -92,8 +93,10 @@ class Post extends Component {
                         <input type="text" onChange={this.changePostHandler} className="post-input" placeholder="Write Comment" name="comment" value={this.state.comment} />
                         <button type="submit" className="post-btn">Comment</button>
                     </form>
+                    <p className="comment-error">
+                        {error}
+                    </p>
                 </div>
-                {error}
                 {this.state.showComments ? comments : null}
             </div>)
         } else {
@@ -166,7 +169,8 @@ const mapDisaptchToProps = dispatch => {
 const mapStateToProps = state => {
     return {
         user: state.user,
-        page: state.page
+        page: state.page,
+        news: state.news
     }
 }
 

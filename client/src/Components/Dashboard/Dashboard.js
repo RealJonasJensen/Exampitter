@@ -7,6 +7,7 @@ import "./Dashboard.css";
 
 import DashboardInfo from "./DashboardInfo/DashboardInfo";
 import Posts from "../Posts/Posts";
+import Spinner from "../UI/Spinner/Spinner";
 
 class Dashboard extends Component {
 
@@ -56,21 +57,23 @@ class Dashboard extends Component {
 
     render() {
 
-        let topUsers = "Loading Top Users..."
+        let topUsers = <Spinner />
         if (!this.props.news.loadingTop) {
             topUsers = <DashboardInfo info={this.props.news.topUsers}>{"Followers"}</DashboardInfo>
         }
 
-        let posts = "Loading Posts..."
+        let posts = <Spinner />
         console.log(this.props.news)
+        if (this.props.user.following.length === 1) {
+            posts = <p className="dashboard-nopost">Start following people to get a feed!</p>
+        }
+        console.log(this.props.user)
         if (!this.props.news.loadingPosts) {
             posts = <Posts posts={this.props.news.posts} />
         }
-        if (this.props.news.posts.length === 0) {
-            posts = <p className="dashboard-nopost">Start following people to get a feed!</p>
-        }
 
-        let newUsers = "Loading New Users";
+
+        let newUsers = <Spinner />
         if (!this.props.news.loadingNew) {
             newUsers = <DashboardInfo info={this.props.news.newUsers}>{"Created"}</DashboardInfo>
         }

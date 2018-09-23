@@ -221,7 +221,8 @@ export const createCommentDashboard = (postId, comment) => dispatch => {
             dispatch(createCommentSuccess(response.data))
         })
         .catch(err => {
-            dispatch(createCommentFailure(err.data))
+            dispatch(createCommentFailure(err.response.data))
+            setTimeout(() => { dispatch(clearCommentError()) }, 5000)
         })
 }
 
@@ -243,7 +244,10 @@ export const createCommentFailure = error => {
 
 export const deletePost = id => dispatch => {
     axios.delete("/api/posts/" + id)
-        .then(response => dispatch(deletePostDashboardSuccess(response.data, id)))
+        .then(response => {
+            dispatch(deletePostDashboardSuccess(response.data, id))
+            dispatch(deletePostPageSuccess(response.data, id))
+        })
         .catch(err => dispatch(deletePostDashboardFailure(err.response)))
 }
 
@@ -258,6 +262,13 @@ export const deletePostDashboardFailure = error => {
     return {
         type: actions.DASHBOARD_DELETE_POST_FAILURE,
         payload: error
+    }
+}
+
+export const deletePostPageSuccess = (data, id) => {
+    return {
+        type: actions.PAGE_DELETE_POST_SUCCESS,
+        payload: { data, id }
     }
 }
 
@@ -306,7 +317,7 @@ export const clearPosts = () => {
     }
 }
 
-// Clear Error
+// Clear Errors
 
 export const clearError = () => {
     return {
@@ -314,4 +325,9 @@ export const clearError = () => {
     }
 }
 
+export const clearCommentError = () => {
+    return {
+        type: actions.CLEAR_COMMENT_ERROR
+    }
+}
 

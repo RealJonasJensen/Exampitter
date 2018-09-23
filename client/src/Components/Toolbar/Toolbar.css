@@ -8,10 +8,10 @@
 }
 
 .toolbar-items {
-    width: 1024px;
+    width: 100%;
     margin: 0 auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 
 .toolbar-items h1 {
@@ -31,7 +31,7 @@
 }
 
 .toolbar-links li {
-    padding: 30px;
+    padding: 30px 10px;
 }
 
 .toolbar-links li:hover {

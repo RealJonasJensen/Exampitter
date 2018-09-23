@@ -33,15 +33,16 @@ class Register extends Component {
             <div className="register">
                 <h2>Create a profile!</h2>
                 <form>
-                    <input type="text" name="email" onChange={this.onChangeInputHandler} value={this.state.email} placeholder="Email" />
-                    {this.props.auth.error.email}
-                    <input type="text" name="username" onChange={this.onChangeInputHandler} value={this.state.username} placeholder="Username" />
-                    {this.props.auth.error.username}
-                    <input type="password" name="password" onChange={this.onChangeInputHandler} value={this.state.password} placeholder="Password" />
-                    {this.props.auth.error.password}
-                    <input type="password" name="password2" onChange={this.onChangeInputHandler} value={this.state.password2} placeholder="Repeat Password" />
-                    {this.props.auth.error.password2}
+                    <input required type="text" name="email" onChange={this.onChangeInputHandler} value={this.state.email} placeholder="Email" />
+                    <p className="register-error" >{this.props.auth.error.email}</p>
+                    <input required type="text" name="username" onChange={this.onChangeInputHandler} value={this.state.username} placeholder="Username" />
+                    <p className="register-error" >{this.props.auth.error.username}</p>
+                    <input required type="password" name="password" onChange={this.onChangeInputHandler} value={this.state.password} placeholder="Password" />
+                    <p className="register-error" >{this.props.auth.error.password}</p>
+                    <input required type="password" name="password2" onChange={this.onChangeInputHandler} value={this.state.password2} placeholder="Repeat Password" />
+                    <p className="register-error" >{this.props.auth.error.password2}</p>
                     <button onClick={this.onSubmitHandler}>Register</button>
+                    <p className="register-info" >There is no email confirmation so use a test email</p>
                 </form>
             </div>
         )

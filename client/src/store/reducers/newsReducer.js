@@ -11,7 +11,8 @@ const initialState = {
     errorNew: null,
     errorPosts: null,
     likedPost: false,
-    error: {}
+    error: {},
+    errorComment: {}
 }
 
 export default (state = initialState, action) => {
@@ -120,6 +121,13 @@ export default (state = initialState, action) => {
                 ...state,
                 errorPosts: null,
                 posts: newPosts
+            }
+
+        case actions.DASHBOARD_CREATE_COMMENT_FAILURE:
+            console.log(action.payload)
+            return {
+                ...state,
+                errorComment: action.payload
             }
 
         // Like post
@@ -241,6 +249,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 error: {}
+            }
+        case actions.CLEAR_COMMENT_ERROR:
+            return {
+                ...state,
+                errorComment: {}
             }
 
         default:

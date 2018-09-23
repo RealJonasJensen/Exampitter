@@ -27,15 +27,22 @@ class Login extends Component {
     }
 
     render() {
+        console.log(this.props.auth.error.response)
         return (
             <div className="login">
                 <form>
                     <input type="text" name="email" placeholder="Email" onChange={this.onChangeInputHandler} value={this.state.email} />
-                    {this.props.auth.error.loginEmail}
                     <input type="password" name="password" placeholder="Password" onChange={this.onChangeInputHandler} value={this.state.password} />
-                    {this.props.auth.error.loginPassword}
                     <button onClick={this.onSubmitHandler}>Login</button>
                 </form>
+                <div className="login-error">
+                    <p>
+                        {this.props.auth.error.loginEmail}
+                    </p>
+                    <p>
+                        {this.props.auth.error.loginPassword}
+                    </p>
+                </div>
             </div>
         )
     }

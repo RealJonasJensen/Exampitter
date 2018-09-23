@@ -143,12 +143,32 @@ export default (state = initialState, action) => {
                     ...post
                 }
             })
+
             //console.log(newDeletedCommentPosts)
-
-
             return {
                 ...state,
                 posts: newDeletedCommentPosts
+            }
+
+        case actions.PAGE_DELETE_POST_SUCCESS:
+            // Get Post ID
+            const deletePostId = action.payload.id;
+            //console.log(deletePostId)
+            // Get Posts
+            let deletedPosts = state.posts;
+            //console.log(deletedPosts)
+            // Find Post
+            const deletedPost = deletedPosts.find(post => post._id === deletePostId)
+            //console.log(deletedPost)
+            // Find Index
+            const removeIndexPage = deletedPosts.indexOf(deletedPost);
+            //console.log(removeIndexPage);
+            // Splice
+            deletedPosts.splice(removeIndexPage, 1);
+            //console.log(deletedPosts)
+            return {
+                ...state,
+                posts: [...deletedPosts]
             }
 
         // Follow a User

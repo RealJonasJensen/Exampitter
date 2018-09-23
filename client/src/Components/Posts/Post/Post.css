@@ -7,6 +7,12 @@
     border-bottom: 1px solid grey;
 }
 
+.comment-error {
+    text-align: center;
+    color: rgb(171, 0, 0);
+    padding: 2% 0;
+}
+
 
 .post:hover {
     background-color: rgba(223, 230, 235, .5)
@@ -23,6 +29,7 @@
 }
 
 .post-create-comment input {
+    outline: none;
     width: 80%;
     padding: 1%;
 }
@@ -32,6 +39,7 @@
     margin-left: 1px;
     padding: 1%;
     cursor: pointer;
+    outline: none;
     background-color: rgb(93, 131, 100);
 }
 
