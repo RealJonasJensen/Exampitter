@@ -29,7 +29,7 @@ class PostComment extends Component {
     }
 
     confirmClickHandler = event => {
-        console.log("Delete Comment")
+        // console.log("Delete Comment")
         //console.log(this.props.history.location.pathname)
         this.props.onDeleteComment(this.props.postId, this.props.commentId, this.props.history.location.pathname)
     }
@@ -50,7 +50,7 @@ class PostComment extends Component {
         }
 
         let deleteComment = null;
-        console.log(this.props)
+        // console.log(this.props)
         if (this.props.userId === this.props.user.id) {
             deleteComment = <div className="post-comments-delete" ><p onClick={this.showModalHandler} className="post-comment-button" ><FaTrash /></p></div>
         }

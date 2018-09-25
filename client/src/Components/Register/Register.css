@@ -1,14 +1,10 @@
 .register {
     padding: 5%;
-    background-color: rgb(99, 172, 250);
+    background-color: rgb(50, 176, 255);
     border-radius: 10px;
     border: 2px solid rgb(255, 255, 255);
     width: 70%;
     margin: 0 auto;
-}
-
-.register form {
-    -padding-top: 15%;
 }
 
 .register h2 {
@@ -46,4 +42,10 @@
 .register-error {
     padding-left: 2%;
     color: rgb(130, 4, 4);
+}
+
+.register-loader {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
 }

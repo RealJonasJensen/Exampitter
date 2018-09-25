@@ -5,7 +5,7 @@ import axios from "axios";
 
 export const getTopUsers = () => dispatch => {
     dispatch(getTopUsersStart())
-    axios.get("/api/users/top")
+    axios.get("https://exampitter-db.herokuapp.com/api/users/top")
         .then(response => {
             dispatch(getTopUsersSuccess(response.data))
         })
@@ -38,7 +38,7 @@ export const getTopUsersFailure = error => {
 
 export const getNewUsers = () => dispatch => {
     dispatch(getNewUsersStart())
-    axios.get("/api/users/newest")
+    axios.get("https://exampitter-db.herokuapp.com/api/users/newest")
         .then(response => dispatch(getNewUsersSuccess(response.data)))
         .catch(error => dispatch(getNewUsersFailure(error)))
 }
@@ -70,7 +70,7 @@ export const getPosts = user => dispatch => {
     //console.log(following)
     let posts = [];
     //console.log(user)
-    axios.get("api/posts/user/" + user)
+    axios.get("https://exampitter-db.herokuapp.com/api/posts/user/" + user)
         .then(response => {
             response.data.forEach(message => {
                 posts.push(message)
@@ -106,7 +106,7 @@ export const getPostsSuccess = data => {
 // Create Post
 
 export const createPost = data => dispatch => {
-    axios.post("/api/posts/", data)
+    axios.post("https://exampitter-db.herokuapp.com/api/posts/", data)
         .then(response => dispatch(createPostSuccess(response.data)))
         .catch(error => {
             dispatch(createPostError(error.response.data))
@@ -131,7 +131,7 @@ export const createPostError = error => {
 // Like Post
 
 export const likePost = (postId) => dispatch => {
-    axios.post("/api/posts/like/" + postId)
+    axios.post("https://exampitter-db.herokuapp.com/api/posts/like/" + postId)
         .then(response => {
             dispatch(likePostSuccess(response.data))
             dispatch(likePostPageSuccess(response.data))
@@ -177,7 +177,7 @@ export const likePostPageFailure = err => {
 // Unlike Post
 
 export const unLikePost = (postId, userId) => dispatch => {
-    axios.post("/api/posts/unlike/" + postId)
+    axios.post("https://exampitter-db.herokuapp.com/api/posts/unlike/" + postId)
         .then(response => {
             dispatch(unLikePostSuccess(response.data, userId))
             dispatch(unLikePostPageSuccess(response.data))
@@ -185,7 +185,7 @@ export const unLikePost = (postId, userId) => dispatch => {
         })
         .catch(err => {
             dispatch(unLikePostFailure(err.response))
-            console.log(err)
+            // console.log(err)
         }
         )
 }
@@ -215,9 +215,9 @@ export const unLikePostPageSuccess = data => {
 
 export const createCommentDashboard = (postId, comment) => dispatch => {
     const data = { text: comment };
-    axios.post("/api/posts/" + postId + "/comment", data)
+    axios.post("https://exampitter-db.herokuapp.com/api/posts/" + postId + "/comment", data)
         .then(response => {
-            console.log(response.data)
+            // console.log(response.data)
             dispatch(createCommentSuccess(response.data))
         })
         .catch(err => {
@@ -243,7 +243,7 @@ export const createCommentFailure = error => {
 // Delete Post
 
 export const deletePost = id => dispatch => {
-    axios.delete("/api/posts/" + id)
+    axios.delete("https://exampitter-db.herokuapp.com/api/posts/" + id)
         .then(response => {
             dispatch(deletePostDashboardSuccess(response.data, id))
             dispatch(deletePostPageSuccess(response.data, id))
@@ -275,20 +275,20 @@ export const deletePostPageSuccess = (data, id) => {
 // Delete Comment
 
 export const deleteComment = (postId, commentId, path) => dispatch => {
-    console.log(postId, commentId)
-    axios.delete(`/api/posts/${postId}/comment/${commentId}`)
+    // console.log(postId, commentId)
+    axios.delete(`https://exampitter-db.herokuapp.com/api/posts/${postId}/comment/${commentId}`)
         .then(response => {
-            console.log(response.data)
+            // console.log(response.data)
             dispatch(deleteCommentSuccess(response.data, commentId, path))
         })
         .catch(error => {
-            console.log(error)
+            // console.log(error)
             dispatch(deleteCommentFailure(error))
         })
 }
 
 export const deleteCommentSuccess = (data, commentId, path) => {
-    console.log(path)
+    // console.log(path)
     if (path === "/") {
         return {
             type: actions.DASHBOARD_DELETE_COMMENT_SUCCESS,

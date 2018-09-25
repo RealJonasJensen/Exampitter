@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import * as actions from "../../store/actions/index";
 
+import AuthSpinner from "../UI/AuthSpinner/AuthSpinner";
+
 import "./Register.css";
 
 class Register extends Component {
@@ -29,6 +31,18 @@ class Register extends Component {
     }
 
     render() {
+
+        let loading = null;
+        if (this.props.auth.loadingRegister) {
+            loading = (
+                <div className="register-loader" >
+                    <AuthSpinner />
+                </div>
+            )
+        } else {
+            loading = <button onClick={this.onSubmitHandler}>Register</button>;
+        }
+
         return (
             <div className="register">
                 <h2>Create a profile!</h2>
@@ -41,7 +55,7 @@ class Register extends Component {
                     <p className="register-error" >{this.props.auth.error.password}</p>
                     <input required type="password" name="password2" onChange={this.onChangeInputHandler} value={this.state.password2} placeholder="Repeat Password" />
                     <p className="register-error" >{this.props.auth.error.password2}</p>
-                    <button onClick={this.onSubmitHandler}>Register</button>
+                    {loading}
                     <p className="register-info" >There is no email confirmation so use a test email</p>
                 </form>
             </div>

@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import "./Toolbar.css"
 
-import Login from "../../Containers/Login/Login";
+import Login from "../Login/Login";
 
 class Toolbar extends Component {
 

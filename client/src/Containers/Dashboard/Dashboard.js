@@ -5,9 +5,9 @@ import * as actions from "../../store/actions/index";
 
 import "./Dashboard.css";
 
-import DashboardInfo from "./DashboardInfo/DashboardInfo";
-import Posts from "../Posts/Posts";
-import Spinner from "../UI/Spinner/Spinner";
+import DashboardInfo from "../../Components/Dashboard/DashboardInfo/DashboardInfo";
+import Posts from "../../Components/Posts/Posts";
+import Spinner from "../../Components/UI/Spinner/Spinner";
 
 class Dashboard extends Component {
 
@@ -63,11 +63,11 @@ class Dashboard extends Component {
         }
 
         let posts = <Spinner />
-        console.log(this.props.news)
+        // console.log(this.props.news)
         if (this.props.user.following.length === 1) {
             posts = <p className="dashboard-nopost">Start following people to get a feed!</p>
         }
-        console.log(this.props.user)
+        // console.log(this.props.user)
         if (!this.props.news.loadingPosts) {
             posts = <Posts posts={this.props.news.posts} />
         }

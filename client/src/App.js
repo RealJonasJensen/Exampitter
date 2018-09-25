@@ -9,7 +9,7 @@ import setAuthtoken from "./utility/setAuthToken";
 
 import Layout from "./Hoc/Layout/Layout";
 import Landing from "./Containers/Landing/Landing";
-import Dashboard from "./Components/Dashboard/Dashboard";
+import Dashboard from "./Containers/Dashboard/Dashboard";
 import User from "./Containers/User/User";
 import Logout from "./Components/Logout/Logout";
 import Aux from "./Hoc/Aux/Aux";
@@ -44,7 +44,6 @@ class App extends Component {
 
     let routes = (
       <Aux>
-        <Route path="/user/:id" component={User} />
         <Route exact path="/" component={Landing} />
       </Aux>
     )

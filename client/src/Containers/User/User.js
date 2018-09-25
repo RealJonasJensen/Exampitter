@@ -59,11 +59,11 @@ class User extends Component {
 
         let button = <Spinner />
 
-        console.log(this.props.user.id, this.props.match.params.id)
+        // console.log(this.props.user.id, this.props.match.params.id)
 
         if (this.props.page.user.followers) {
             const isUserFollowing = this.props.page.user.followers.filter(item => item.user._id === this.props.user.id)
-            console.log(isUserFollowing)
+            // console.log(isUserFollowing)
             if (isUserFollowing.length >= 1) {
                 button = (<div className="user-follow" onClick={this.onClickUnfollow}>
                     <p className="user-p-unfollow">Unfollow</p>
@@ -83,7 +83,7 @@ class User extends Component {
         const followingCount = this.props.page.user.following ? this.props.page.user.following.length : 0;
         const postCount = this.props.page.posts ? this.props.page.posts.length : 0;
 
-        console.log(this.props.page.posts)
+        // console.log(this.props.page.posts)
 
 
         return (

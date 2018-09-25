@@ -25,7 +25,7 @@ export default (state = initialState, action) => {
                 error: action.payload
             }
         case actions.GET_USER_PAGE_SUCCESS:
-            console.log(action.payload)
+            // console.log(action.payload)
             return {
                 ...state,
                 loadingUser: false,
@@ -37,7 +37,7 @@ export default (state = initialState, action) => {
                 loadingPosts: true
             }
         case actions.GET_USER_PAGE_POSTS_SUCCESS:
-            console.log(action.payload)
+            // console.log(action.payload)
             return {
                 ...state,
                 loadingPosts: false,
@@ -70,7 +70,7 @@ export default (state = initialState, action) => {
             }
 
         case actions.PAGE_CREATE_COMMENT_FAILURE:
-            console.log(action.payload)
+            // console.log(action.payload)
             return {
                 ...state,
                 error: { createComment: action.payload }
@@ -117,7 +117,7 @@ export default (state = initialState, action) => {
         // Page Delete Comment
 
         case actions.PAGE_DELETE_COMMENT_SUCCESS:
-            console.log(action.payload)
+            // console.log(action.payload)
             // Get Post Id
             const postId = action.payload.data._id;
             // Get comment Id
@@ -125,7 +125,7 @@ export default (state = initialState, action) => {
             // Map Posts to Find Post with Commment
             const newDeletedCommentPosts = state.posts.map(post => {
                 if (postId.toString() === post._id.toString()) {
-                    console.log("This is the one!")
+                    // console.log("This is the one!")
                     // Find Comment
                     const removeComment = post.comments.find(comment => comment._id === commentId);
                     // Find comment index
@@ -175,7 +175,7 @@ export default (state = initialState, action) => {
 
         case actions.FOLLOW_USER_SUCCESS:
 
-            console.log(action.payload)
+            // console.log(action.payload)
 
             const newFollowedFollowers = state.user.followers;
             const follower = {

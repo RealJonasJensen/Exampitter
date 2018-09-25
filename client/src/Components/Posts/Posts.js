@@ -29,12 +29,12 @@ class Posts extends Component {
             const dateB = new Date(b.date);
             return dateB - dateA;
         });
-        console.log(posts1)
+        // console.log(posts1)
         // console.log(this.props.user)
 
         const posts = posts1.map((post, index) => {
 
-            console.log(post)
+            // console.log(post)
             // console.log(this.props.user.id)
 
             const alreadyLiked = post.likes.filter(like => like.user.toString() === this.props.user.id);

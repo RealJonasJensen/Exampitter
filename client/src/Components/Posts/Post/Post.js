@@ -66,7 +66,7 @@ class Post extends Component {
         let comments = "loading..."
         if (this.props.comments) {
             comments = this.props.comments.map(comment => {
-                console.log(comment)
+                // console.log(comment)
                 const commentUserId = comment.user._id ? comment.user._id : comment.user;
                 return < PostComment key={comment._id} date={comment.date} commentId={comment._id} postId={this.props.id} text={comment.text}
                     avatar={comment.avatar} userId={commentUserId} username={comment.username} />
@@ -118,7 +118,7 @@ class Post extends Component {
             )
         }
 
-        console.log(this.props)
+        // console.log(this.props)
         return (
 
             <Aux>

@@ -2,7 +2,7 @@ import * as actions from "./actionTypes";
 import axios from "axios";
 
 export const getCurrentUser = () => dispatch => {
-    axios.get("/api/users/current")
+    axios.get("https://exampitter-db.herokuapp.com/api/users/current")
         .then(response => {
             dispatch(getCurrentUserSuccess(response.data))
         })

@@ -90,7 +90,7 @@ export default (state = initialState, action) => {
         // Create Post
 
         case actions.CREATE_POST_SUCCESS:
-            console.log(action.payload)
+            // console.log(action.payload)
             return {
                 ...state,
                 posts: [action.payload, ...state.posts],
@@ -98,7 +98,7 @@ export default (state = initialState, action) => {
             }
 
         case actions.CREATE_POST_FAILURE:
-            console.log(action.payload)
+            // console.log(action.payload)
             return {
                 ...state,
                 error: action.payload
@@ -124,7 +124,7 @@ export default (state = initialState, action) => {
             }
 
         case actions.DASHBOARD_CREATE_COMMENT_FAILURE:
-            console.log(action.payload)
+            // console.log(action.payload)
             return {
                 ...state,
                 errorComment: action.payload
@@ -204,7 +204,7 @@ export default (state = initialState, action) => {
         // Delete Comment
 
         case actions.DASHBOARD_DELETE_COMMENT_SUCCESS:
-            console.log(action.payload)
+            // console.log(action.payload)
 
             // Get Post Id
             const postId = action.payload.data._id;
@@ -214,7 +214,7 @@ export default (state = initialState, action) => {
             // Map Posts to Find Post with Commment
             const newDeletedCommentPosts = state.posts.map(post => {
                 if (postId.toString() === post._id.toString()) {
-                    console.log("This is the one!")
+                    // console.log("This is the one!")
                     // Find Comment
                     const removeComment = post.comments.find(comment => comment._id === commentId);
                     // Find comment index

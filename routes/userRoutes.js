@@ -34,7 +34,7 @@ router.get("/user/:id", (req, res) => {
         .populate("following.user", ["avatar", "_id", "username"])
         .populate("followers.user", ["avatar", "_id", "username"])
         .then(user => {
-            console.log(user);
+            // console.log(user);
             return res.json(user);
         })
         .catch(err => {
@@ -114,14 +114,19 @@ router.post("/register", async (req, res) => {
             // Hash password
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, (err, hash) => {
-                    if (err) console.log(err);
+                    if (err) {
+                        // console.log(err);
+                    }
                     newUser.password = hash;
                     const newFollower = { user: newUser._id };
                     newUser.following.push(newFollower);
                     newUser
                         .save()
                         .then(user => res.json(user))
-                        .catch(err => console.log(err));
+                        .catch(err => {
+                            // console.log(err)
+                        }
+                        );
                 })
             })
         }
@@ -137,7 +142,7 @@ router.post("/login", (req, res) => {
 
     //Check Validation
     if (!isValid) {
-        console.log(errors)
+        // console.log(errors)
         return res.status(400).json(errors)
     }
 
@@ -163,7 +168,9 @@ router.post("/login", (req, res) => {
                             keys.secretOrKey,
                             { expiresIn: 3600 },
                             (err, token) => {
-                                if (err) console.log(err);
+                                if (err) {
+                                    // console.log(err);
+                                }
                                 res.json({
                                     success: true,
                                     token: "Bearer " + token
@@ -201,14 +208,14 @@ router.post("/:id/follow", passport.authenticate("jwt", { session: false }), (re
             // console.log(user)
             // Check if already following
             const alreadyFollowing = user.followers.filter(follower => follower.user._id.toString() == req.user.id)
-            console.log(alreadyFollowing)
+            // console.log(alreadyFollowing)
             if (alreadyFollowing.length >= 1) {
                 return res.status(400).json({ alreadyFollow: "You already follow this user" })
             }
 
             User.findById(req.user.id)
                 .then(currentUser => {
-                    console.log(currentUser)
+                    // console.log(currentUser)
                     const newFollowing = {
                         user: req.params.id
                     }

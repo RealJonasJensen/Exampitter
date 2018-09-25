@@ -5,7 +5,7 @@ import axios from "axios";
 
 export const getUserPage = id => dispatch => {
     dispatch(getUserPageStart())
-    axios.get("/api/users/user/" + id)
+    axios.get("https://exampitter-db.herokuapp.com/api/users/user/" + id)
         .then(response => dispatch(getUserPageSuccess(response.data)))
         .catch(err => dispatch(getUserPageFailure(err.response)))
 }
@@ -34,7 +34,7 @@ export const getUserPageFailure = error => {
 
 export const getUserPagePosts = id => dispatch => {
     dispatch(getUserPagePostsStart())
-    axios.get("/api/posts/user/" + id)
+    axios.get("https://exampitter-db.herokuapp.com/api/posts/user/" + id)
         .then(response => {
             dispatch(getUserPagePostsSuccess(response.data))
             //dispatch(clearNews())
@@ -66,7 +66,7 @@ export const getUserPagePostsFailure = error => {
 
 export const createCommentPage = (postId, comment) => dispatch => {
     const data = { text: comment };
-    axios.post("/api/posts/" + postId + "/comment", data)
+    axios.post("https://exampitter-db.herokuapp.com/api/posts/" + postId + "/comment", data)
         .then(response => dispatch(createCommentSuccess(response.data)))
         .catch(err => dispatch(createCommentFailure(err.response.data.text)))
 }
@@ -88,7 +88,7 @@ export const createCommentFailure = error => {
 // Follow a user
 
 export const followUser = (userId, currentUser) => dispatch => {
-    axios.post("/api/users/" + userId + "/follow")
+    axios.post("https://exampitter-db.herokuapp.com/api/users/" + userId + "/follow")
         .then(response => dispatch(followUserSuccess(response.data, currentUser)))
         .catch(error => dispatch(followUserFailure(error.response)))
 
@@ -111,7 +111,7 @@ export const followUserFailure = error => {
 // Unfollow a user
 
 export const unfollowUser = (userId, currentUser) => dispatch => {
-    axios.post("/api/users/" + userId + "/unfollow")
+    axios.post("https://exampitter-db.herokuapp.com/api/users/" + userId + "/unfollow")
         .then(response => dispatch(unfollowUserSuccess(response.data, currentUser)))
         .catch(error => dispatch(unfollowUserFailure(error.response)))
 

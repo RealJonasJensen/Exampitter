@@ -7,9 +7,10 @@ import jwt_decode from "jwt-decode";
 
 export const loginUser = (userdata, history) => (
     dispatch => {
-        axios.post("/api/users/login", userdata)
+        dispatch(loginStart())
+        axios.post("https://exampitter-db.herokuapp.com/api/users/login", userdata)
             .then(response => {
-                console.log(response.data)
+                // console.log(response.data)
                 // Save webtoken to localStorage
                 const token = response.data.token;
                 localStorage.setItem("jwt", token);
@@ -17,15 +18,29 @@ export const loginUser = (userdata, history) => (
                 setAuthToken(token);
                 // Decode token to get user data
                 const decoded = jwt_decode(token);
+                dispatch(loginEnd())
                 dispatch(setCurrentUser(decoded))
                 history.push("/")
             })
             .catch(err => {
-                console.log(err.response.data)
+                // console.log(err.response.data)
+                dispatch(loginEnd())
                 dispatch(loginUserFailure(err.response.data))
             })
     }
 )
+
+export const loginStart = () => {
+    return {
+        type: actions.LOGIN_START
+    }
+}
+
+export const loginEnd = () => {
+    return {
+        type: actions.LOGIN_END
+    }
+}
 
 export const loginUserFailure = (error) => {
     return {
@@ -54,8 +69,9 @@ export const logoutUser = () => dispatch => {
 // Register User
 
 export const registerUser = (userdata, history) => dispatch => {
-    console.log(userdata)
-    axios.post("api/users/register", userdata)
+    // console.log(userdata)
+    dispatch(registerStart())
+    axios.post("https://exampitter-db.herokuapp.com/api/users/register", userdata)
         .then(response => {
             // console.log(response.data)
             dispatch(registerUserSuccess(response.data))
@@ -65,6 +81,12 @@ export const registerUser = (userdata, history) => dispatch => {
             // console.log(err)
             dispatch(registerUserFailure(err.response.data))
         })
+}
+
+export const registerStart = () => {
+    return {
+        type: actions.REGISTER_USER_START,
+    }
 }
 
 export const registerUserSuccess = (data) => {
